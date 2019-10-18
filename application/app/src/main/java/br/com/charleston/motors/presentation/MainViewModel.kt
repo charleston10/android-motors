@@ -6,6 +6,7 @@ import br.com.charleston.core.base.BaseViewModel
 import br.com.charleston.domain.DefaultObserver
 import br.com.charleston.domain.interactor.GetMakeUseCase
 import br.com.charleston.domain.interactor.GetVehicleUseCase
+import br.com.charleston.domain.model.AvatarModel
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import javax.inject.Inject
@@ -18,6 +19,7 @@ interface InputMainViewModel {
 interface OutputMainViewModel {
     val makeLiveData: LiveData<List<MakeModel>>
     val vehicleLiveData: LiveData<List<VehicleModel>>
+    val avatarLiveData: LiveData<AvatarModel>
 }
 
 interface ContractMainViewModel {
@@ -46,9 +48,13 @@ class MainViewModel @Inject constructor(
     private val vehicleMutableLiveData = MutableLiveData<List<VehicleModel>>()
     override val vehicleLiveData: LiveData<List<VehicleModel>> get() = vehicleMutableLiveData
 
+    private val avatarMutableLiveData = MutableLiveData<AvatarModel>()
+    override val avatarLiveData: LiveData<AvatarModel> get() = avatarMutableLiveData
+
     override fun initialize() {
         getMakes()
         getVehicles()
+        getAvatar()
     }
 
     override fun nextVehiclePage() {
@@ -56,6 +62,15 @@ class MainViewModel @Inject constructor(
             vehiclePage++
             getVehicles()
         }
+    }
+
+    private fun getAvatar() {
+        avatarMutableLiveData.postValue(
+            AvatarModel(
+                name = "Jose Alves",
+                url = "https://avatars3.githubusercontent.com/u/3097207?s=460&v=4"
+            )
+        )
     }
 
     private fun getMakes() {

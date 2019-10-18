@@ -38,6 +38,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         getViewModel().output.vehicleLiveData.observe(this, Observer {
             getViewDataBinding().vehicles = it.toTypedArray()
         })
+
+        getViewModel().output.avatarLiveData.observe(this, Observer {
+            getViewDataBinding().avatar = it
+        })
     }
 
     private fun setupScroll() {
