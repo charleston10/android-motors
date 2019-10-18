@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="model"
+                type="br.com.charleston.domain.model.MakeModel"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+            app:cardCornerRadius="8dp"
+            android:padding="16dp"
+            app:cardBackgroundColor="@color/blue"
+            android:layout_width="120dp"
+            android:layout_height="150dp">
+
+        <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <TextView
+                    android:text="@{model.name}"
+                    android:id="@+id/txt_mark"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_centerInParent="true"
+                    tools:text="BMW"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:layout_below="@id/txt_mark"
+                    android:textSize="14sp"
+                    android:layout_centerInParent="true"
+                    tools:text="marca"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

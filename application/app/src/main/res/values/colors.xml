@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!-- colors primaries -->
+    <color name="primaryColorLight">#7CABBF</color>
+    <color name="primaryColor">#245066</color>
+    <color name="primaryColorDark">#16303d</color>
+    <color name="primaryColorText">#212121</color>
+
+    <color name="secundaryColorLight">#D9D9D9</color>
+    <color name="secundaryColor">#868f91</color>
+    <color name="secundaryColorDark">#585E60</color>
+
+    <color name="accentColorLight">#88c647</color>
+    <color name="accentColor">#54c431</color>
+    <color name="accentColorDark">#2D8019</color>
+    <color name="accentColor2">#EF5F98</color>
+
+    <color name="blue">#007AFF</color>
+    <color name="blue50">#80007AFF</color>
+    <color name="yellow">#FFB900</color>
+    <color name="black">#17181C</color>
+    <color name="black_50">#8017181C</color>
+    <color name="gray">#2A2E43</color>
+    <color name="gray_medium">#78849E</color>
+    <color name="gray_light">#F4F5F7</color>
+    <color name="gray_medium_50">#80ADADAF</color>
+    <color name="gray_medium_25">#40ADADAF</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="aqua">#00FFFF</color>
+    <color name="green">#008000</color>
+    <color name="navy">#000080</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="olive">#808000</color>
+    <color name="teal">#008080</color>
+    <color name="lime">#00FF00</color>
+    <color name="purple">#800080</color>
+    <color name="fuchsia">#FF00FF</color>
+    <color name="maroon">#800000</color>
+    <color name="red">#A80303</color>
+    <color name="orange">#FFA500</color>
+
+    <color name="alert">#fff9c4</color>
+    <color name="alert_50">#80FFF9C4</color>
+    <color name="table_title">#8090A4AE</color>
+    <color name="table_item_gray">#1A90A4AE</color>
+    <color name="table_item_white">#fff</color>
+
+    <color name="tools_green">#3402EC02</color>
+
+    <color name="statusbar_staging">#CC0041</color>
+    <color name="statusbar_dev">#4698FC</color>
+
+    <color name="error">#8B0000</color>
 </resources>
