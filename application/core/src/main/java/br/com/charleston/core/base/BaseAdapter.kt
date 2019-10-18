@@ -32,10 +32,8 @@ abstract class BaseAdapter<T, A : BaseViewHolder<T>> : RecyclerView.Adapter<A>()
     }
 
     fun addAll(items: List<T>) {
-        for (t: T in items) {
-            itemsList.add(0, t)
-            notifyItemInserted(0)
-        }
+        itemsList.addAll(items)
+        notifyDataSetChanged()
     }
 
     fun refreshList(items: List<T>) {

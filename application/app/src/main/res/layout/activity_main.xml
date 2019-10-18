@@ -29,6 +29,7 @@
                 android:layout_marginStart="8dp" android:layout_marginTop="8dp" android:id="@+id/recyclerView"/>
 
         <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_vehicles"
                 app:bindListVehicle="@{vehicles}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

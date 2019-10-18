@@ -34,6 +34,8 @@ class MainViewModel @Inject constructor(
     OutputMainViewModel {
 
     private var vehiclePage = 1
+    private var perPage = 10
+    private var breakPagination = false
 
     override val input: InputMainViewModel get() = this
     override val output: OutputMainViewModel get() = this
@@ -50,11 +52,13 @@ class MainViewModel @Inject constructor(
     }
 
     override fun nextVehiclePage() {
-        vehiclePage++
-        getVehicles()
+        if (!breakPagination) {
+            vehiclePage++
+            getVehicles()
+        }
     }
 
-    private fun getMakes(){
+    private fun getMakes() {
         getMakeUseCase.execute(object : DefaultObserver<List<MakeModel>>() {
             override fun onNext(t: List<MakeModel>) {
                 makeMutableLiveData.postValue(t)
@@ -62,11 +66,18 @@ class MainViewModel @Inject constructor(
         })
     }
 
-    private fun getVehicles(){
+    private fun getVehicles() {
         getVehicleUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
             override fun onNext(t: List<VehicleModel>) {
                 vehicleMutableLiveData.postValue(t)
+                treatPage(t.size)
             }
         }, vehiclePage)
+    }
+
+    private fun treatPage(total: Int) {
+        if (total < perPage) {
+            breakPagination = true
+        }
     }
 }

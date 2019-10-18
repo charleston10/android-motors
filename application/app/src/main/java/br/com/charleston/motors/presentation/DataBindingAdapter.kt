@@ -46,12 +46,16 @@ class DataBindingAdapter {
         @BindingAdapter(value = ["bindListVehicle"], requireAll = false)
         fun bindListVehicle(recyclerView: RecyclerView, items: Array<VehicleModel>?) {
             items?.let {
-                recyclerView.adapter = VehicleAdapter()
-                    .apply {
-                        this.items = items.toList()
-                    }
-                recyclerView.layoutManager =
-                    LinearLayoutManager(recyclerView.context)
+                if (recyclerView.adapter == null) {
+                    recyclerView.adapter = VehicleAdapter()
+                        .apply {
+                            this.items = items.toList()
+                        }
+                    recyclerView.layoutManager =
+                        LinearLayoutManager(recyclerView.context)
+                } else {
+                    (recyclerView.adapter  as? VehicleAdapter)?.addAll(items.toList())
+                }
             }
         }
     }
