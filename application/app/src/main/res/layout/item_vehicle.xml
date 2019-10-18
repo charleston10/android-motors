@@ -2,6 +2,10 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable name="model" type="br.com.charleston.domain.model.VehicleModel"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -17,6 +21,7 @@
                 android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
 
         <ImageView
+                app:bindImageUrl="@{model.image}"
                 android:translationZ="@dimen/cardview_default_elevation"
                 android:layout_width="150dp"
                 android:layout_height="90dp"
@@ -26,6 +31,7 @@
                 android:layout_marginStart="16dp"/>
 
         <TextView
+                android:text="@{model.model}"
                 android:elevation="2dp"
                 android:textSize="18sp"
                 tools:text="Honda - City"
@@ -37,6 +43,7 @@
                 android:id="@+id/textView2" android:layout_marginStart="8dp"/>
 
         <TextView
+                android:text="@{model.version}"
                 android:background="@null"
                 android:elevation="2dp"
                 android:textColor="@color/white"

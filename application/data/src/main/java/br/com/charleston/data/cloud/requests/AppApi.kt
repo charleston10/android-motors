@@ -10,20 +10,20 @@ import retrofit2.http.Query
 
 interface AppApi {
 
-    @GET("/Make")
-    fun getMakes(    ): Observable<List<MakeResponse>>
+    @GET("/api/OnlineChallenge/Make")
+    fun getMakes(): Observable<List<MakeResponse>>
 
-    @GET("/Model")
+    @GET("/api/OnlineChallenge/Model")
     fun getModels(
         @Query(QUERY_MAKE_ID) makeId: String
     ): Observable<List<ModelResponse>>
 
-    @GET("/Version")
+    @GET("/api/OnlineChallenge/Version")
     fun getVersions(
         @Query(QUERY_MODEL_ID) modelId: String
     ): Observable<List<VersionResponse>>
 
-    @GET("/Vehicles")
+    @GET("/api/OnlineChallenge/Vehicles")
     fun getVehicles(
         @Query(QUERY_PAGE) page: Int
     ): Observable<List<VehicleResponse>>

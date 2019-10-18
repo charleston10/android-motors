@@ -10,6 +10,6 @@ open class UrlApiModule {
     @Provides
     @Named(URL_DOMAIN)
     open fun provideUrl(): String {
-        return "http://desafioonline.webmotors.com.br/api/OnlineChallenge/"
+        return "http://desafioonline.webmotors.com.br/"
     }
 }

@@ -13,7 +13,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observerViewModel()
-        getViewModel().input.getMakes()
+        getViewModel().input.initialize()
     }
 
     override fun getLayoutId(): Int {
@@ -29,6 +29,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private fun observerViewModel() {
         getViewModel().output.makeLiveData.observe(this, Observer {
             getViewDataBinding().makes = it.toTypedArray()
+        })
+
+        getViewModel().output.vehicleLiveData.observe(this, Observer {
+            getViewDataBinding().vehicles = it.toTypedArray()
         })
     }
 }

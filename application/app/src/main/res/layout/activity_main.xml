@@ -6,6 +6,10 @@
         <variable
                 name="makes"
                 type="br.com.charleston.domain.model.MakeModel[]"/>
+
+        <variable
+                name="vehicles"
+                type="br.com.charleston.domain.model.VehicleModel[]"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +19,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
                 tools:itemCount="1"
+                app:bindListMake="@{makes}"
                 android:orientation="horizontal"
                 tools:listitem="@layout/item_make"
                 android:layout_width="match_parent"
@@ -24,6 +29,7 @@
                 android:layout_marginStart="8dp" android:layout_marginTop="8dp" android:id="@+id/recyclerView"/>
 
         <androidx.recyclerview.widget.RecyclerView
+                app:bindListVehicle="@{vehicles}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 tools:listitem="@layout/item_vehicle"
