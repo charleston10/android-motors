@@ -37,7 +37,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingTop="16dp"
             android:visibility="@{!isLoading &amp;&amp; !isError &amp;&amp; !isEmpty ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Vehicles"
+                android:textColor="@color/textTitle"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:text="You can favorite cars"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_vehicles"
