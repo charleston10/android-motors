@@ -5,6 +5,6 @@
 
     <fragment android:id="@+id/homeFragment"
               tools:layout="@layout/fragment_home"
-              android:name="br.com.charleston.motors.presentation.HomeFragment"
+              android:name="br.com.charleston.motors.presentation.screens.home.HomeFragment"
               android:label="HomeFragment"/>
 </navigation>

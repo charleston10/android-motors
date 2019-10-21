@@ -2,8 +2,8 @@ package br.com.charleston.motors.di
 
 import androidx.lifecycle.ViewModel
 import br.com.charleston.core.viewmodel.ViewModelKey
-import br.com.charleston.motors.presentation.HomeViewModel
-import br.com.charleston.motors.presentation.MainViewModel
+import br.com.charleston.motors.presentation.screens.home.HomeViewModel
+import br.com.charleston.motors.presentation.screens.main.MainViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

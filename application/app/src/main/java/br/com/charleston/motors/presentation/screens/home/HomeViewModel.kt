@@ -1,4 +1,4 @@
-package br.com.charleston.motors.presentation
+package br.com.charleston.motors.presentation.screens.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

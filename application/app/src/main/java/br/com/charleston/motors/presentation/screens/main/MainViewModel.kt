@@ -1,18 +1,9 @@
-package br.com.charleston.motors.presentation
+package br.com.charleston.motors.presentation.screens.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.charleston.core.ActionLiveData
 import br.com.charleston.core.base.BaseViewModel
-import br.com.charleston.core.base.Event
-import br.com.charleston.domain.DefaultObserver
-import br.com.charleston.domain.interactor.GetFavoriteUseCase
-import br.com.charleston.domain.interactor.GetMakeUseCase
-import br.com.charleston.domain.interactor.GetVehicleUseCase
 import br.com.charleston.domain.model.AvatarModel
-import br.com.charleston.domain.model.MakeModel
-import br.com.charleston.domain.model.VehicleModel
-import java.util.*
 import javax.inject.Inject
 
 interface InputMainViewModel {

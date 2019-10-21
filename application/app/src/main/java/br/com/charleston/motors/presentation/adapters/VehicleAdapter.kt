@@ -1,4 +1,4 @@
-package br.com.charleston.motors.presentation
+package br.com.charleston.motors.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package br.com.charleston.motors.presentation
+package br.com.charleston.motors.presentation.screens.main
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -6,8 +6,6 @@ import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.ActivityMainBinding
 
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.core.base.BaseActivity
 
 

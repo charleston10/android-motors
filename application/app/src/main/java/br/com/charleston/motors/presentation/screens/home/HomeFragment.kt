@@ -1,4 +1,4 @@
-package br.com.charleston.motors.presentation
+package br.com.charleston.motors.presentation.screens.home
 
 import android.os.Bundle
 import android.view.View

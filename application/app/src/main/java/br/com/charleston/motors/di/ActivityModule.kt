@@ -1,6 +1,6 @@
 package br.com.charleston.motors.di
 
-import br.com.charleston.motors.presentation.MainActivity
+import br.com.charleston.motors.presentation.screens.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
