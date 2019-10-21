@@ -45,5 +45,14 @@
                 android:layout_width="match_parent"
                 android:id="@+id/include_container_make"
                 layout="@layout/include_container_make"/>
+
+        <include
+                bind:vehicles="@{vehicles}"
+                android:id="@+id/include_container_vehicle"
+                android:layout_below="@id/include_container_make"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                layout="@layout/include_container_vehicle"/>
     </RelativeLayout>
 </layout>

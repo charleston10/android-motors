@@ -4,12 +4,19 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
+
         <variable
                 name="vehicles"
                 type="br.com.charleston.domain.model.VehicleModel[]"/>
+
+        <variable name="isEmpty"
+                  type="java.lang.Boolean"/>
     </data>
 
     <LinearLayout
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -17,18 +24,30 @@
         <TextView
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="Vehicle"
+                android:text="My Cars"
                 android:textColor="@color/textTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                tools:itemCount="1"
+                tools:visibility="visible"
+                android:visibility="@{!isEmpty ? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="8dp"
+                tools:itemCount="3"
                 app:bindListVehicle="@{vehicles}"
-                android:orientation="horizontal"
-                tools:listitem="@layout/item_make"
+                android:orientation="vertical"
+                tools:listitem="@layout/item_vehicle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+        <ImageView
+                tools:visibility="gone"
+                android:visibility="@{isEmpty ? View.VISIBLE : View.GONE}"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_undraw_fast_car"
+                android:layout_width="200dp" android:layout_height="150dp"/>
     </LinearLayout>
 </layout>

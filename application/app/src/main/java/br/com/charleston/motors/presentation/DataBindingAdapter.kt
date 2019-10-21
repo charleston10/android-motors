@@ -3,6 +3,7 @@ package br.com.charleston.motors.presentation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.domain.model.MakeModel
@@ -54,6 +55,14 @@ class DataBindingAdapter {
         }
 
         @JvmStatic
+        @BindingAdapter(value = ["bindCarName"], requireAll = false)
+        fun bindCarName(textView: TextView, model: VehicleModel?) {
+            model?.let {
+                textView.text = String.format("%s - %s", model.make, model.model)
+            }
+        }
+
+        @JvmStatic
         @BindingAdapter(value = ["bindListMake"], requireAll = false)
         fun bindListMake(recyclerView: RecyclerView, items: Array<MakeModel>?) {
             items?.let {
@@ -76,7 +85,8 @@ class DataBindingAdapter {
                             this.items = items.toList()
                         }
                     recyclerView.layoutManager =
-                        LinearLayoutManager(recyclerView.context)
+                        GridLayoutManager(recyclerView.context, 2)
+                    recyclerView.setHasFixedSize(true)
                 } else {
                     (recyclerView.adapter  as? VehicleAdapter)?.addAll(items.toList())
                 }

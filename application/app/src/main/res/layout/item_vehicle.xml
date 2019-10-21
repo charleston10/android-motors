@@ -6,55 +6,62 @@
         <variable name="model" type="br.com.charleston.domain.model.VehicleModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
+            android:padding="8dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                app:cardBackgroundColor="@color/blue"
                 app:cardCornerRadius="8dp"
-                android:layout_height="120dp" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="64dp" android:layout_marginEnd="16dp" android:id="@+id/view"
-                android:layout_marginTop="16dp" android:layout_marginBottom="16dp"/>
-
-        <ImageView
-                app:bindImageUrl="@{model.image}"
-                android:translationZ="@dimen/cardview_default_elevation"
-                android:layout_width="150dp"
-                android:layout_height="90dp"
-                tools:srcCompat="@drawable/car_example"
-                android:id="@+id/imageView" app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/view" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="16dp"/>
-
-        <TextView
-                android:text="@{model.model}"
-                android:elevation="2dp"
-                android:textSize="18sp"
-                tools:text="Honda - City"
-                android:textStyle="bold"
-                android:textColor="@color/white"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/gray_light"
+                app:cardPreventCornerOverlap="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/imageView" app:layout_constraintTop_toTopOf="@+id/imageView"
-                android:id="@+id/textView2" android:layout_marginStart="8dp"/>
+                android:layout_height="match_parent">
 
-        <TextView
-                android:text="@{model.version}"
-                android:background="@null"
-                android:elevation="2dp"
-                android:textColor="@color/white"
-                tools:text="2.0 EXL 4X4 16V GASOLINA 4P AUTOMÁTICO"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2" app:layout_constraintEnd_toEndOf="@+id/view"
-                android:layout_marginTop="8dp" android:layout_marginEnd="8dp"/>
+            <RelativeLayout
+                    android:paddingBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:scaleType="centerCrop"
+                        android:id="@+id/iv_car"
+                        app:bindImageUrl="@{model.image}"
+                        tools:src="@drawable/car_example"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"/>
+
+                <TextView
+                        app:bindCarName="@{model}"
+                        android:id="@+id/txt_title"
+                        android:textColor="@color/textTitle"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        android:layout_below="@id/iv_car"
+                        android:layout_marginTop="4dp"
+                        tools:text="Honta - City"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:text="@{model.version}"
+                        android:id="@+id/txt_description"
+                        android:textColor="@color/textTitle"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_below="@id/txt_title"
+                        android:layout_marginTop="4dp"
+                        tools:text="2.0 EXL 4X4 16V GASOLINA 4P AUTOMÁTICO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>
