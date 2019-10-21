@@ -110,15 +110,23 @@ class DataBindingAdapter {
             viewModel: VehicleViewModel?
         ) {
             items?.let {
-                recyclerView.adapter = VehicleAdapter(object : VehicleAdapterListener {
-                    override fun onVehicleSelect(vehicleModel: VehicleModel) {
-                        viewModel?.input?.onSelectVehicle(vehicleModel)
+                if (recyclerView.adapter == null) {
+                    recyclerView.adapter = VehicleAdapter(object : VehicleAdapterListener {
+                        override fun onVehicleSelect(vehicleModel: VehicleModel) {
+                            viewModel?.input?.onSelectVehicle(vehicleModel)
+                        }
+                    }).apply {
+                        this.items = items.toList()
                     }
-                }).apply {
-                    this.items = items.toList()
+                    recyclerView.layoutManager =
+                        LinearLayoutManager(
+                            recyclerView.context,
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                } else {
+                    (recyclerView.adapter  as? VehicleAdapter)?.addAll(items.toList())
                 }
-                recyclerView.layoutManager =
-                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
             }
         }
     }
