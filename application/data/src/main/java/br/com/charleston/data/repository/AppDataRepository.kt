@@ -55,7 +55,7 @@ class AppDataRepository(
 
     override fun getFavorites(): Observable<List<VehicleModel>> {
         val mapper = VehicleEntityToModelMapper()
-        
+
         return local.findFavorites()
             .map { mapper.transform(it) }
     }

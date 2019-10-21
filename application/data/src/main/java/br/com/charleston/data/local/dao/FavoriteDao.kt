@@ -1,5 +1,6 @@
 package br.com.charleston.data.local.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -8,6 +9,7 @@ import br.com.charleston.data.local.entity.VehicleEntity
 import io.reactivex.Completable
 import io.reactivex.Observable
 
+@Dao
 interface FavoriteDao {
 
     @Query("SELECT vehicle.* FROM favorite INNER JOIN vehicle ON vehicle.id = favorite.vehicleId")

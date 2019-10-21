@@ -24,14 +24,14 @@
         <TextView
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="My Cars"
+                android:text="Favorite Cars"
                 android:textColor="@color/textTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                tools:visibility="visible"
+                tools:visibility="gone"
                 android:visibility="@{!isEmpty ? View.VISIBLE : View.GONE}"
                 android:layout_marginTop="8dp"
                 tools:itemCount="3"
@@ -41,13 +41,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <ImageView
-                tools:visibility="gone"
+        <LinearLayout
                 android:visibility="@{isEmpty ? View.VISIBLE : View.GONE}"
+                android:gravity="center"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_undraw_fast_car"
-                android:layout_width="200dp" android:layout_height="150dp"/>
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    tools:visibility="visible"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_undraw_fast_car"
+                    android:layout_width="200dp" android:layout_height="150dp"/>
+
+            <TextView
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="No has favorite car"/>
+
+        </LinearLayout>
     </LinearLayout>
 </layout>

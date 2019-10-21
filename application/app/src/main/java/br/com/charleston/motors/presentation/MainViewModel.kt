@@ -2,8 +2,11 @@ package br.com.charleston.motors.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.charleston.core.ActionLiveData
 import br.com.charleston.core.base.BaseViewModel
+import br.com.charleston.core.base.Event
 import br.com.charleston.domain.DefaultObserver
+import br.com.charleston.domain.interactor.GetFavoriteUseCase
 import br.com.charleston.domain.interactor.GetMakeUseCase
 import br.com.charleston.domain.interactor.GetVehicleUseCase
 import br.com.charleston.domain.model.AvatarModel
@@ -20,6 +23,8 @@ interface OutputMainViewModel {
     val makeLiveData: LiveData<List<MakeModel>>
     val vehicleLiveData: LiveData<List<VehicleModel>>
     val avatarLiveData: LiveData<AvatarModel>
+
+    val favoriteEvent: ActionLiveData<FavoriteState>
 }
 
 interface ContractMainViewModel {
@@ -29,7 +34,8 @@ interface ContractMainViewModel {
 
 class MainViewModel @Inject constructor(
     private val getMakeUseCase: GetMakeUseCase,
-    private val getVehicleUseCase: GetVehicleUseCase
+    private val getVehicleUseCase: GetVehicleUseCase,
+    private val getFavoriteUseCase: GetFavoriteUseCase
 ) : BaseViewModel(),
     ContractMainViewModel,
     InputMainViewModel,
@@ -51,9 +57,12 @@ class MainViewModel @Inject constructor(
     private val avatarMutableLiveData = MutableLiveData<AvatarModel>()
     override val avatarLiveData: LiveData<AvatarModel> get() = avatarMutableLiveData
 
+    private val favoriteObserverEvent = ActionLiveData<FavoriteState>()
+    override val favoriteEvent: ActionLiveData<FavoriteState> get() = favoriteObserverEvent
+
     override fun initialize() {
         getMakes()
-        getVehicles()
+        getFavorites()
         getAvatar()
     }
 
@@ -90,9 +99,31 @@ class MainViewModel @Inject constructor(
         }, vehiclePage)
     }
 
+    private fun getFavorites() {
+        getFavoriteUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
+            override fun onNext(t: List<VehicleModel>) {
+                handlerFavorite(t)
+            }
+
+            override fun onError(exception: Throwable) {
+                super.onError(exception)
+                exception.printStackTrace()
+            }
+        })
+    }
+
     private fun treatPage(total: Int) {
         if (total < perPage) {
             breakPagination = true
+        }
+    }
+
+    private fun handlerFavorite(items: List<VehicleModel>) {
+        if (items.isEmpty()) {
+            favoriteEvent.postValue(FavoriteState.Empty)
+        } else {
+            vehicleMutableLiveData.postValue(items)
+            favoriteEvent.postValue(FavoriteState.Success)
         }
     }
 }

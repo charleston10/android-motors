@@ -42,20 +42,35 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         getViewModel().output.avatarLiveData.observe(this, Observer {
             getViewDataBinding().avatar = it
         })
+
+        getViewModel().output.favoriteEvent.observe(this, Observer {
+            handlerState(it)
+        })
     }
 
-   /* private fun setupScroll() {
-        val list = getViewDataBinding().listVehicles
-
-        list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val visiblePosition =
-                    (list.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-
-                if (visiblePosition == (list.adapter as VehicleAdapter).itemCount - 1) {
-                    getViewModel().input.nextVehiclePage()
-                }
+    private fun handlerState(favoriteState: FavoriteState) {
+        when (favoriteState) {
+            is FavoriteState.Empty -> {
+                getViewDataBinding().includeContainerVehicle.isEmpty = true
             }
-        })
-    }*/
+            is FavoriteState.Success -> {
+                getViewDataBinding().includeContainerVehicle.isEmpty = false
+            }
+        }
+    }
+
+    /* private fun setupScroll() {
+         val list = getViewDataBinding().listVehicles
+
+         list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                 val visiblePosition =
+                     (list.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
+                 if (visiblePosition == (list.adapter as VehicleAdapter).itemCount - 1) {
+                     getViewModel().input.nextVehiclePage()
+                 }
+             }
+         })
+     }*/
 }
