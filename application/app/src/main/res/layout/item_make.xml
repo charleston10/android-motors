@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-                name="model"
-                type="br.com.charleston.domain.model.MakeModel"/>
+            name="model"
+            type="br.com.charleston.domain.model.MakeModel"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
-            app:cardCornerRadius="8dp"
-            android:id="@+id/card_view"
-            android:layout_marginStart="8dp"
-            android:padding="16dp"
-            app:cardBackgroundColor="@color/blue"
-            android:layout_width="90dp"
-            android:layout_height="100dp">
+        android:id="@+id/card_view"
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:padding="16dp"
+        app:cardBackgroundColor="@color/blue"
+        app:cardCornerRadius="8dp">
 
         <RelativeLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
-                    android:text="@{model.name}"
-                    android:id="@+id/txt_mark"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_centerInParent="true"
-                    tools:text="BMW"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/txt_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{model.name}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="BMW"/>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

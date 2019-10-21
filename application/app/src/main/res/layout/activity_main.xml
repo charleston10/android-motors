@@ -1,58 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:bind="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-                name="makes"
-                type="br.com.charleston.domain.model.MakeModel[]"/>
-
-        <variable
-                name="vehicles"
-                type="br.com.charleston.domain.model.VehicleModel[]"/>
-
-        <variable
-                name="avatar"
-                type="br.com.charleston.domain.model.AvatarModel"/>
+            name="avatar"
+            type="br.com.charleston.domain.model.AvatarModel"/>
     </data>
 
     <RelativeLayout
-            android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_toolbar_main"
+            layout="@layout/include_toolbar_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            bind:avatar="@{avatar}"/>
 
         <include
-                android:layout_marginTop="16dp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                bind:avatar="@{avatar}"
-                android:id="@+id/include_toolbar_main"
-                layout="@layout/include_toolbar_main"/>
-
-        <include
-                android:layout_marginTop="8dp"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/include_toolbar_main"
-                android:id="@+id/include_container_search"
-                layout="@layout/include_container_search"/>
-
-        <include
-                android:layout_marginTop="8dp"
-                bind:makes="@{makes}"
-                android:layout_below="@id/include_container_search"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:id="@+id/include_container_make"
-                layout="@layout/include_container_make"/>
-
-        <include
-                bind:vehicles="@{vehicles}"
-                android:id="@+id/include_container_vehicle"
-                android:layout_below="@id/include_container_make"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
-                layout="@layout/include_container_vehicle"/>
+            android:id="@+id/include_navigation_main"
+            layout="@layout/include_navigation_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/include_toolbar_main"/>
     </RelativeLayout>
 </layout>

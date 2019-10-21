@@ -1,63 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="model" type="br.com.charleston.domain.model.VehicleModel"/>
+
+        <variable
+            name="model"
+            type="br.com.charleston.domain.model.VehicleModel"/>
     </data>
 
 
     <LinearLayout
-            android:padding="8dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <com.google.android.material.card.MaterialCardView
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="@color/gray_light"
-                app:cardPreventCornerOverlap="true"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/gray_light"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardPreventCornerOverlap="true">
 
             <RelativeLayout
-                    android:paddingBottom="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp">
 
                 <ImageView
-                        android:scaleType="centerCrop"
-                        android:id="@+id/iv_car"
-                        app:bindImageUrl="@{model.image}"
-                        tools:src="@drawable/car_example"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"/>
+                    android:id="@+id/iv_car"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    app:bindImageUrl="@{model.image}"
+                    tools:src="@drawable/car_example"/>
 
                 <TextView
-                        app:bindCarName="@{model}"
-                        android:id="@+id/txt_title"
-                        android:textColor="@color/textTitle"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="8dp"
-                        android:layout_below="@id/iv_car"
-                        android:layout_marginTop="4dp"
-                        tools:text="Honta - City"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/txt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_car"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/textTitle"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:bindCarName="@{model}"
+                    tools:text="Honta - City"/>
 
                 <TextView
-                        android:text="@{model.version}"
-                        android:id="@+id/txt_description"
-                        android:textColor="@color/textTitle"
-                        android:textSize="16sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_below="@id/txt_title"
-                        android:layout_marginTop="4dp"
-                        tools:text="2.0 EXL 4X4 16V GASOLINA 4P AUTOMÁTICO"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    android:id="@+id/txt_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_title"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@{model.version}"
+                    android:textColor="@color/textTitle"
+                    android:textSize="16sp"
+                    tools:text="2.0 EXL 4X4 16V GASOLINA 4P AUTOMÁTICO"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 

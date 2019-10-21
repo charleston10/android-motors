@@ -16,7 +16,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observerViewModel()
-//        setupScroll()
         getViewModel().input.initialize()
     }
 
@@ -31,46 +30,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun observerViewModel() {
-        getViewModel().output.makeLiveData.observe(this, Observer {
-            getViewDataBinding().makes = it.toTypedArray()
-        })
-
-        getViewModel().output.vehicleLiveData.observe(this, Observer {
-            getViewDataBinding().vehicles = it.toTypedArray()
-        })
-
-        getViewModel().output.avatarLiveData.observe(this, Observer {
-            getViewDataBinding().avatar = it
-        })
-
-        getViewModel().output.favoriteEvent.observe(this, Observer {
-            handlerState(it)
-        })
+        getViewModel().output.avatarLiveData.observe(this,
+            Observer {
+                getViewDataBinding().avatar = it
+            })
     }
-
-    private fun handlerState(favoriteState: FavoriteState) {
-        when (favoriteState) {
-            is FavoriteState.Empty -> {
-                getViewDataBinding().includeContainerVehicle.isEmpty = true
-            }
-            is FavoriteState.Success -> {
-                getViewDataBinding().includeContainerVehicle.isEmpty = false
-            }
-        }
-    }
-
-    /* private fun setupScroll() {
-         val list = getViewDataBinding().listVehicles
-
-         list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                 val visiblePosition =
-                     (list.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-
-                 if (visiblePosition == (list.adapter as VehicleAdapter).itemCount - 1) {
-                     getViewModel().input.nextVehiclePage()
-                 }
-             }
-         })
-     }*/
 }
