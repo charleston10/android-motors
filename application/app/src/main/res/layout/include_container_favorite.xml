@@ -40,7 +40,7 @@
             android:visibility="@{!isEmpty ? View.VISIBLE : View.GONE}"
             app:bindListVehicle="@{vehicles}"
             tools:itemCount="3"
-            tools:listitem="@layout/item_vehicle"
+            tools:listitem="@layout/item_favorite"
             tools:visibility="gone"/>
 
         <LinearLayout

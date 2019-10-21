@@ -88,7 +88,7 @@ class DataBindingAdapter {
         fun bindListVehicle(recyclerView: RecyclerView, items: Array<VehicleModel>?) {
             items?.let {
                 if (recyclerView.adapter == null) {
-                    recyclerView.adapter = VehicleAdapter()
+                    recyclerView.adapter = FavoriteAdapter()
                         .apply {
                             this.items = items.toList()
                         }
@@ -96,7 +96,7 @@ class DataBindingAdapter {
                         GridLayoutManager(recyclerView.context, 2)
                     recyclerView.setHasFixedSize(true)
                 } else {
-                    (recyclerView.adapter  as? VehicleAdapter)?.addAll(items.toList())
+                    (recyclerView.adapter  as? FavoriteAdapter)?.addAll(items.toList())
                 }
             }
         }

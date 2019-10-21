@@ -78,19 +78,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun bindView(){
         getViewDataBinding().viewModel = getViewModel()
     }
-
-    /* private fun setupScroll() {
-         val list = getViewDataBinding().listVehicles
-
-         list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                 val visiblePosition =
-                     (list.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-
-                 if (visiblePosition == (list.adapter as VehicleAdapter).itemCount - 1) {
-                     getViewModel().input.nextVehiclePage()
-                 }
-             }
-         })
-     }*/
 }

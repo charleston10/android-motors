@@ -13,6 +13,14 @@
         <variable
             name="isLoading"
             type="java.lang.Boolean"/>
+
+        <variable
+            name="isError"
+            type="java.lang.Boolean"/>
+
+        <variable
+            name="isEmpty"
+            type="java.lang.Boolean"/>
     </data>
 
     <LinearLayout
@@ -23,21 +31,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{!isLoading &amp;&amp; !isError &amp;&amp; !isEmpty ? View.VISIBLE : View.GONE}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_vehicles"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_favorite"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}">
-
-            <ImageView
-                android:layout_width="180dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_undraw_startman"
-                tools:visibility="visible"/>
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone">
 
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
@@ -47,6 +62,48 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Loading"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{isError ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:src="@drawable/ic_undraw_bug_fixing"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Houve um problema inesperado"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{isEmpty ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="180dp"
+                android:src="@drawable/ic_undraw_startman"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Não há dados para visualizar"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

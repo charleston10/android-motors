@@ -7,22 +7,22 @@ import br.com.charleston.core.base.BaseAdapter
 import br.com.charleston.core.base.BaseViewHolder
 import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.R
-import br.com.charleston.motors.databinding.ItemVehicleBinding
+import br.com.charleston.motors.databinding.ItemFavoriteBinding
 
-class VehicleAdapter : BaseAdapter<VehicleModel, VehicleAdapter.VehicleAdapterViewHolder>() {
+class FavoriteAdapter : BaseAdapter<VehicleModel, FavoriteAdapter.FavoriteAdapterViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleAdapterViewHolder {
-        return VehicleAdapterViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdapterViewHolder {
+        return FavoriteAdapterViewHolder(
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.item_vehicle,
+                R.layout.item_favorite,
                 parent,
                 false
             )
         )
     }
 
-    inner class VehicleAdapterViewHolder(private val item: ItemVehicleBinding) :
+    inner class FavoriteAdapterViewHolder(private val item: ItemFavoriteBinding) :
         BaseViewHolder<VehicleModel>(item.root) {
         override fun bind(model: VehicleModel) {
             item.run {

@@ -17,7 +17,6 @@ import javax.inject.Inject
 interface InputHomeViewModel {
     fun initialize()
     fun onSelectMake(makeModel: MakeModel)
-    fun nextVehiclePage()
 }
 
 interface OutputHomeViewModel {
@@ -42,10 +41,6 @@ class HomeViewModel @Inject constructor(
     InputHomeViewModel,
     OutputHomeViewModel {
 
-    private var vehiclePage = 1
-    private var perPage = 10
-    private var breakPagination = false
-
     override val input: InputHomeViewModel get() = this
     override val output: OutputHomeViewModel get() = this
 
@@ -66,13 +61,6 @@ class HomeViewModel @Inject constructor(
         getFavorites()
     }
 
-    override fun nextVehiclePage() {
-        if (!breakPagination) {
-            vehiclePage++
-            getVehicles()
-        }
-    }
-
     override fun onSelectMake(makeModel: MakeModel) {
         makeSelectObserverEvent.postValue(makeModel)
     }
@@ -89,15 +77,6 @@ class HomeViewModel @Inject constructor(
         })
     }
 
-    private fun getVehicles() {
-        getVehicleUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
-            override fun onNext(t: List<VehicleModel>) {
-                vehicleMutableLiveData.postValue(t)
-                treatPage(t.size)
-            }
-        }, vehiclePage)
-    }
-
     private fun getFavorites() {
         getFavoriteUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
             override fun onNext(t: List<VehicleModel>) {
@@ -109,12 +88,6 @@ class HomeViewModel @Inject constructor(
                 exception.printStackTrace()
             }
         })
-    }
-
-    private fun treatPage(total: Int) {
-        if (total < perPage) {
-            breakPagination = true
-        }
     }
 
     private fun handlerFavorite(items: List<VehicleModel>) {
