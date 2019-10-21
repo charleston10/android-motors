@@ -39,10 +39,10 @@ dependencies {
     implementation libCore.commonsIo
 
     //network
-    api libData.retrofit
-    api libData.retrofitConverter
-    api libData.retrofitAdapter
-    api libData.okHttpLogger
+    api libData.network.retrofit
+    api libData.network.retrofitConverter
+    api libData.network.retrofitAdapter
+    api libData.network.okHttpLogger
     implementation libCore.google.gson
 
     //dagger
@@ -55,4 +55,10 @@ dependencies {
     //rx
     implementation libCore.rx.rxJava
     implementation libCore.rx.rxAndroid
+
+    //database
+    implementation libData.database.runtime
+    kapt libData.database.compiler
+    implementation libData.database.rxjava2
+    implementation libData.database.testing
 }

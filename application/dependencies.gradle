@@ -11,7 +11,8 @@ ext {
             supportTest     : '1.0.2',
             dagger          : '2.19',
             okHttp          : '4.2.2',
-            retrofit        : '2.6.2'
+            retrofit        : '2.6.2',
+            room2           : '2.1.0'
     ]
 
     coreDependencies = [
@@ -95,10 +96,19 @@ ext {
     ]
 
     dataDependencies = [
-            okHttp           : "com.squareup.okhttp3:okhttp:${version.okHttp}",
-            okHttpLogger     : "com.squareup.okhttp3:logging-interceptor:${version.okHttp}",
-            retrofit         : "com.squareup.retrofit2:retrofit:${version.retrofit}",
-            retrofitConverter: "com.squareup.retrofit2:converter-gson:${version.retrofit}",
-            retrofitAdapter  : "com.squareup.retrofit2:adapter-rxjava2:${version.retrofit}"
+            network : [
+                    okHttp           : "com.squareup.okhttp3:okhttp:${version.okHttp}",
+                    okHttpLogger     : "com.squareup.okhttp3:logging-interceptor:${version.okHttp}",
+                    retrofit         : "com.squareup.retrofit2:retrofit:${version.retrofit}",
+                    retrofitConverter: "com.squareup.retrofit2:converter-gson:${version.retrofit}",
+                    retrofitAdapter  : "com.squareup.retrofit2:adapter-rxjava2:${version.retrofit}",
+                    jacksonConverter : "com.squareup.retrofit2:converter-jackson:2.0.0"
+            ],
+            database: [
+                    runtime : "androidx.room:room-runtime:${version.room2}",
+                    compiler: "androidx.room:room-compiler:${version.room2}",
+                    rxjava2 : "androidx.room:room-rxjava2:${version.room2}",
+                    testing : "androidx.room:room-testing:${version.room2}"
+            ]
     ]
 }
