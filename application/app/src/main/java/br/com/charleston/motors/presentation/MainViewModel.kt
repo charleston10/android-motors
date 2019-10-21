@@ -67,7 +67,7 @@ class MainViewModel @Inject constructor(
     private fun getAvatar() {
         avatarMutableLiveData.postValue(
             AvatarModel(
-                name = "Jose Alves",
+                name = "Charleston A.",
                 url = "https://avatars3.githubusercontent.com/u/3097207?s=460&v=4"
             )
         )

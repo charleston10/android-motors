@@ -16,7 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observerViewModel()
-        setupScroll()
+//        setupScroll()
         getViewModel().input.initialize()
     }
 
@@ -44,7 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         })
     }
 
-    private fun setupScroll() {
+   /* private fun setupScroll() {
         val list = getViewDataBinding().listVehicles
 
         list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -57,5 +57,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 }
             }
         })
-    }
+    }*/
 }

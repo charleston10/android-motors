@@ -49,7 +49,7 @@ class DataBindingAdapter {
         @BindingAdapter(value = ["bindWelcome"], requireAll = false)
         fun bindWelcome(textView: TextView, name: String?) {
             name?.let {
-                textView.text = String.format("Bem-vindo %s", it)
+                textView.text = String.format("%s", it)
             }
         }
 

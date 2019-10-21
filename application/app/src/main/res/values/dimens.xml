@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- text -->
+    <dimen name="titleBigContent">20sp</dimen>
+    <dimen name="titleContent">18sp</dimen>
+    <dimen name="textContent">14sp</dimen>
+    <dimen name="textLargeContent">18sp</dimen>
+    <dimen name="textButton">18sp</dimen>
+
+    <!-- buttons -->
+    <dimen name="buttonRadius">25dp</dimen>
+    <dimen name="buttonHeight">65dp</dimen>
+
+    <!-- containers -->
+    <dimen name="distanceScreen">16dp</dimen>
+    <dimen name="distanceView">8dp</dimen>
+
+    <!-- tab layout -->
+    <dimen name="tabIndicatorHeight">4dp</dimen>
+</resources>
