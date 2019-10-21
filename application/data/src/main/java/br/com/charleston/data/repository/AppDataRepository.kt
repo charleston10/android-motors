@@ -1,16 +1,16 @@
 package br.com.charleston.data.repository
 
+import br.com.charleston.data.repository.cache.LocalDataStore
 import br.com.charleston.data.repository.cloud.CloudDataStore
-import br.com.charleston.data.repository.mappers.MakeResponseToModelMapper
-import br.com.charleston.data.repository.mappers.ModelResponseToModelMapper
-import br.com.charleston.data.repository.mappers.VehicleResponseToModelMapper
-import br.com.charleston.data.repository.mappers.VersionResponseToModelMapper
+import br.com.charleston.data.repository.mappers.*
 import br.com.charleston.domain.model.*
 import br.com.charleston.domain.repository.IAppRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 
 class AppDataRepository(
-    private val cloud: CloudDataStore
+    private val cloud: CloudDataStore,
+    private val local: LocalDataStore
 ) : IAppRepository {
 
     override fun getMakes(): Observable<List<MakeModel>> {
@@ -47,5 +47,16 @@ class AppDataRepository(
             .map {
                 mapper.transform(it)
             }
+    }
+
+    override fun favorite(vehicleId: Int): Completable {
+        return local.favorite(vehicleId)
+    }
+
+    override fun getFavorites(): Observable<List<VehicleModel>> {
+        val mapper = VehicleEntityToModelMapper()
+        
+        return local.findFavorites()
+            .map { mapper.transform(it) }
     }
 }
