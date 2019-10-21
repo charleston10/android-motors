@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 interface InputHomeViewModel {
     fun initialize()
+    fun onSelectMake(makeModel: MakeModel)
     fun nextVehiclePage()
 }
 
@@ -23,6 +24,7 @@ interface OutputHomeViewModel {
     val makeLiveData: LiveData<List<MakeModel>>
     val vehicleLiveData: LiveData<List<VehicleModel>>
 
+    val makeSelectEvent: ActionLiveData<MakeModel>
     val favoriteEvent: ActionLiveData<FavoriteState>
 }
 
@@ -56,6 +58,9 @@ class HomeViewModel @Inject constructor(
     private val favoriteObserverEvent = ActionLiveData<FavoriteState>()
     override val favoriteEvent: ActionLiveData<FavoriteState> get() = favoriteObserverEvent
 
+    private val makeSelectObserverEvent = ActionLiveData<MakeModel>()
+    override val makeSelectEvent: ActionLiveData<MakeModel> get() = makeSelectObserverEvent
+
     override fun initialize() {
         getMakes()
         getFavorites()
@@ -66,6 +71,10 @@ class HomeViewModel @Inject constructor(
             vehiclePage++
             getVehicles()
         }
+    }
+
+    override fun onSelectMake(makeModel: MakeModel) {
+        makeSelectObserverEvent.postValue(makeModel)
     }
 
     private fun getMakes() {

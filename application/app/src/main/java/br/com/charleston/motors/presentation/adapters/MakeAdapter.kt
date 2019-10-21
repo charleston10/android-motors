@@ -13,9 +13,13 @@ import br.com.charleston.motors.databinding.ItemMakeBinding
 import java.util.*
 
 
+interface MakeAdapterListener {
+    fun onMakeSelect(makeModel: MakeModel)
+}
 
-
-class MakeAdapter : BaseAdapter<MakeModel, MakeAdapter.MakeAdapterViewHolder>() {
+class MakeAdapter(
+    private val listener: MakeAdapterListener
+) : BaseAdapter<MakeModel, MakeAdapter.MakeAdapterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MakeAdapterViewHolder {
         return MakeAdapterViewHolder(
@@ -36,6 +40,9 @@ class MakeAdapter : BaseAdapter<MakeModel, MakeAdapter.MakeAdapterViewHolder>() 
             item.run {
                 this.model = model
                 cardView.setCardBackgroundColor(color)
+                root.setOnClickListener {
+                    listener.onMakeSelect(model)
+                }
                 executePendingBindings()
             }
         }

@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import br.com.charleston.core.base.BaseFragment
+import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentHomeBinding
 
@@ -13,6 +15,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observerViewModel()
+        bindView()
         getViewModel().input.initialize()
     }
 
@@ -27,28 +30,53 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun observerViewModel() {
-        getViewModel().output.makeLiveData.observe(this, Observer {
-            getViewDataBinding().makes = it.toTypedArray()
-        })
+        getViewModel().output.run {
+            makeLiveData.observe(this@HomeFragment,
+                Observer {
+                    getViewDataBinding().makes = it.toTypedArray()
+                })
 
-        getViewModel().output.vehicleLiveData.observe(this, Observer {
-            getViewDataBinding().vehicles = it.toTypedArray()
-        })
+            vehicleLiveData.observe(this@HomeFragment,
+                Observer {
+                    getViewDataBinding().vehicles = it.toTypedArray()
+                })
 
-        getViewModel().output.favoriteEvent.observe(this, Observer {
-            handlerState(it)
-        })
+            favoriteEvent.observe(this@HomeFragment,
+                Observer {
+                    handlerState(it)
+                })
+
+            makeSelectEvent.observe(this@HomeFragment,
+                Observer {
+                    startVehicles(it)
+                })
+        }
     }
 
     private fun handlerState(favoriteState: FavoriteState) {
         when (favoriteState) {
             is FavoriteState.Empty -> {
-                getViewDataBinding().includeContainerVehicle.isEmpty = true
+                getViewDataBinding().includeContainerFavorite.isEmpty = true
             }
             is FavoriteState.Success -> {
-                getViewDataBinding().includeContainerVehicle.isEmpty = false
+                getViewDataBinding().includeContainerFavorite.isEmpty = false
             }
         }
+    }
+
+    private fun startVehicles(makeModel: MakeModel) {
+        view?.let {
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToVehicleFragment(makeModel)
+
+            Navigation
+                .findNavController(it)
+                .navigate(action)
+        }
+    }
+
+    private fun bindView(){
+        getViewDataBinding().viewModel = getViewModel()
     }
 
     /* private fun setupScroll() {
