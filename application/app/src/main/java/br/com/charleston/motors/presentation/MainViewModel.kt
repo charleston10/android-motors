@@ -12,6 +12,7 @@ import br.com.charleston.domain.interactor.GetVehicleUseCase
 import br.com.charleston.domain.model.AvatarModel
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
+import java.util.*
 import javax.inject.Inject
 
 interface InputMainViewModel {
@@ -85,7 +86,11 @@ class MainViewModel @Inject constructor(
     private fun getMakes() {
         getMakeUseCase.execute(object : DefaultObserver<List<MakeModel>>() {
             override fun onNext(t: List<MakeModel>) {
-                makeMutableLiveData.postValue(t)
+                makeMutableLiveData.postValue(
+                    ArrayList(t).apply {
+                        add(0, createGenericMake())
+                    }
+                )
             }
         })
     }
@@ -125,5 +130,9 @@ class MainViewModel @Inject constructor(
             vehicleMutableLiveData.postValue(items)
             favoriteEvent.postValue(FavoriteState.Success)
         }
+    }
+
+    private fun createGenericMake(): MakeModel {
+        return MakeModel(0, "See all")
     }
 }
