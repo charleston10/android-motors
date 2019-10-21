@@ -1,5 +1,7 @@
 package br.com.charleston.motors.presentation
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -8,6 +10,10 @@ import br.com.charleston.core.base.BaseViewHolder
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.ItemMakeBinding
+import java.util.*
+
+
+
 
 class MakeAdapter : BaseAdapter<MakeModel, MakeAdapter.MakeAdapterViewHolder>() {
 
@@ -25,10 +31,20 @@ class MakeAdapter : BaseAdapter<MakeModel, MakeAdapter.MakeAdapterViewHolder>() 
     inner class MakeAdapterViewHolder(private val item: ItemMakeBinding) :
         BaseViewHolder<MakeModel>(item.root) {
         override fun bind(model: MakeModel) {
+            val color = randomColor(item.root.context)
+
             item.run {
                 this.model = model
+                cardView.setCardBackgroundColor(color)
                 executePendingBindings()
             }
         }
+
+        private fun randomColor(context: Context): Int {
+            val allColors = context.resources.getStringArray(R.array.colors)
+            return Color.parseColor(allColors[Random().nextInt(allColors.size)])
+        }
     }
+
+
 }

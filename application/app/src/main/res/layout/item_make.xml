@@ -10,6 +10,7 @@
 
     <com.google.android.material.card.MaterialCardView
             app:cardCornerRadius="8dp"
+            android:id="@+id/card_view"
             android:layout_marginStart="8dp"
             android:padding="16dp"
             app:cardBackgroundColor="@color/blue"
