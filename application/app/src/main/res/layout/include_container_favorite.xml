@@ -38,7 +38,7 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="@{!isEmpty ? View.VISIBLE : View.GONE}"
-            app:bindListVehicle="@{vehicles}"
+            app:bindListFavorite="@{vehicles}"
             tools:itemCount="3"
             tools:listitem="@layout/item_favorite"
             tools:visibility="gone"/>

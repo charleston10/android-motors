@@ -6,12 +6,14 @@ import br.com.charleston.core.ActionLiveData
 import br.com.charleston.core.base.BaseViewModel
 import br.com.charleston.domain.DefaultObserver
 import br.com.charleston.domain.interactor.GetVehicleUseCase
+import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import javax.inject.Inject
 
 interface InputVehicleViewModel {
     fun findAllVehicles()
     fun nextVehiclePage()
+    fun onSelectVehicle(vehicleModel: VehicleModel)
 }
 
 interface OutputVehicleViewModel {
@@ -53,6 +55,10 @@ class VehicleViewModel @Inject constructor(
             vehiclePage++
             getVehicles()
         }
+    }
+
+    override fun onSelectVehicle(vehicleModel: VehicleModel) {
+
     }
 
     private fun getVehicles() {

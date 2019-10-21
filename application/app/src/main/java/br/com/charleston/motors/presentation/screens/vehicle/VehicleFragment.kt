@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.core.base.BaseFragment
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentVehicleBinding
-import br.com.charleston.motors.presentation.adapters.FavoriteAdapter
+import br.com.charleston.motors.presentation.adapters.VehicleAdapter
 
 class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observerViewModel()
-        getViewModel().input.findAllVehicles()
+        bindView()
         setupScroll()
+        getViewModel().input.findAllVehicles()
     }
 
     override fun getLayoutId(): Int {
@@ -30,19 +31,22 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
             .get(VehicleViewModel::class.java)
     }
 
-    private fun observerViewModel(){
+    private fun observerViewModel() {
         getViewModel().output.run {
             vehicleEvent.observe(this@VehicleFragment,
                 Observer {
                     handlerState(it)
                 })
 
-
+            vehicleListLiveData.observe(this@VehicleFragment,
+                Observer {
+                    getViewDataBinding().vehicles = it.toTypedArray()
+                })
         }
     }
 
-    private fun handlerState(state: VehicleState){
-        when(state){
+    private fun handlerState(state: VehicleState) {
+        when (state) {
             is VehicleState.Empty -> {
                 getViewDataBinding().isEmpty = true
                 getViewDataBinding().isLoading = false
@@ -69,6 +73,10 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
         }
     }
 
+    private fun bindView() {
+        getViewDataBinding().viewModel = getViewModel()
+    }
+
     private fun setupScroll() {
         val list = getViewDataBinding().listVehicles
 
@@ -77,7 +85,7 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
                 val visiblePosition =
                     (list.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
 
-                if (visiblePosition == (list.adapter as FavoriteAdapter).itemCount - 1) {
+                if (visiblePosition == (list.adapter as VehicleAdapter).itemCount - 1) {
                     getViewModel().input.nextVehiclePage()
                 }
             }

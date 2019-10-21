@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.presentation.screens.home.HomeViewModel
+import br.com.charleston.motors.presentation.screens.vehicle.VehicleViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -84,8 +85,8 @@ class DataBindingAdapter {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["bindListVehicle"], requireAll = false)
-        fun bindListVehicle(recyclerView: RecyclerView, items: Array<VehicleModel>?) {
+        @BindingAdapter(value = ["bindListFavorite"], requireAll = false)
+        fun bindListFavorite(recyclerView: RecyclerView, items: Array<VehicleModel>?) {
             items?.let {
                 if (recyclerView.adapter == null) {
                     recyclerView.adapter = FavoriteAdapter()
@@ -98,6 +99,26 @@ class DataBindingAdapter {
                 } else {
                     (recyclerView.adapter  as? FavoriteAdapter)?.addAll(items.toList())
                 }
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["bindListVehicle", "bindListVehicleViewModel"], requireAll = false)
+        fun bindListVehicle(
+            recyclerView: RecyclerView,
+            items: Array<VehicleModel>?,
+            viewModel: VehicleViewModel?
+        ) {
+            items?.let {
+                recyclerView.adapter = VehicleAdapter(object : VehicleAdapterListener {
+                    override fun onVehicleSelect(vehicleModel: VehicleModel) {
+                        viewModel?.input?.onSelectVehicle(vehicleModel)
+                    }
+                }).apply {
+                    this.items = items.toList()
+                }
+                recyclerView.layoutManager =
+                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
             }
         }
     }
