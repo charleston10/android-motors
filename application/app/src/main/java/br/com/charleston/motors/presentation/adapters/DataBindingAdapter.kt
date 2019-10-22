@@ -133,7 +133,7 @@ class DataBindingAdapter {
                             false
                         )
                 } else {
-                    (recyclerView.adapter  as? VehicleAdapter)?.addAll(items.toList())
+                    (recyclerView.adapter  as? VehicleAdapter)?.refreshList(items.toList())
                 }
             }
         }
