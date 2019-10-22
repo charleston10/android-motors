@@ -17,35 +17,40 @@
             type="br.com.charleston.domain.model.VehicleModel[]"/>
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include_container_search"
-            layout="@layout/include_container_search"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/include_container_make"
-            layout="@layout/include_container_make"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/include_container_search"
-            android:layout_marginTop="8dp"
-            bind:makes="@{makes}"
-            bind:viewModel="@{viewModel}"/>
+            <include
+                android:id="@+id/include_container_search"
+                layout="@layout/include_container_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
 
-        <include
-            android:id="@+id/include_container_favorite"
-            layout="@layout/include_container_favorite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/include_container_make"
-            android:layout_marginTop="8dp"
-            bind:vehicles="@{vehicles}"
-            bind:viewModel="@{viewModel}"/>
-    </RelativeLayout>
+            <include
+                android:id="@+id/include_container_make"
+                layout="@layout/include_container_make"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/include_container_search"
+                android:layout_marginTop="8dp"
+                bind:makes="@{makes}"
+                bind:viewModel="@{viewModel}"/>
+
+            <include
+                android:id="@+id/include_container_favorite"
+                layout="@layout/include_container_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/include_container_make"
+                android:layout_marginTop="8dp"
+                bind:vehicles="@{vehicles}"
+                bind:viewModel="@{viewModel}"/>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
