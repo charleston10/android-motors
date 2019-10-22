@@ -87,6 +87,7 @@ class VehicleViewModel @Inject constructor(
 
             override fun onError(exception: Throwable) {
                 super.onError(exception)
+                exception.printStackTrace()
                 vehicleObserverEvent.postValue(VehicleState.Error)
             }
         }, Pair(vehiclePage, makeModel))

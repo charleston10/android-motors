@@ -21,7 +21,11 @@ class GetVehicleUseCase @Inject constructor(
             repository.getVehicles(params.first)
                 .flatMapIterable { it }
                 .filter {
-                    it.make == params.second.name
+                    if (params.second.id == 0) {
+                        true
+                    } else {
+                        it.make == params.second.name
+                    }
                 }
                 .toList()
                 .toObservable()
