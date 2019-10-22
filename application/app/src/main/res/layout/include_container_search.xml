@@ -27,7 +27,7 @@
                 android:id="@+id/user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Search your dream car"
+                android:hint="Search your favorite car"
                 android:inputType="textNoSuggestions"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
