@@ -65,7 +65,13 @@ class VehicleViewModel @Inject constructor(
         getVehicleUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
             override fun onStart() {
                 super.onStart()
-                vehicleObserverEvent.postValue(VehicleState.Loading)
+                vehicleListMutableLiveData.value?.size?.let {
+                    if (it == 0) {
+                        vehicleObserverEvent.postValue(VehicleState.Loading)
+                    } else {
+                        vehicleObserverEvent.postValue(VehicleState.LoadingPage)
+                    }
+                }
             }
 
             override fun onNext(t: List<VehicleModel>) {

@@ -51,24 +51,35 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
                 getViewDataBinding().isEmpty = true
                 getViewDataBinding().isLoading = false
                 getViewDataBinding().isError = false
+                getViewDataBinding().isLoadingPage = false
             }
 
             is VehicleState.Loading -> {
                 getViewDataBinding().isEmpty = false
                 getViewDataBinding().isLoading = true
                 getViewDataBinding().isError = false
+                getViewDataBinding().isLoadingPage = false
             }
 
             is VehicleState.Error -> {
                 getViewDataBinding().isEmpty = false
                 getViewDataBinding().isLoading = false
                 getViewDataBinding().isError = true
+                getViewDataBinding().isLoadingPage = false
             }
 
             is VehicleState.Success -> {
                 getViewDataBinding().isEmpty = false
                 getViewDataBinding().isLoading = false
                 getViewDataBinding().isError = false
+                getViewDataBinding().isLoadingPage = false
+            }
+
+            is VehicleState.LoadingPage -> {
+                getViewDataBinding().isEmpty = false
+                getViewDataBinding().isLoading = false
+                getViewDataBinding().isError = false
+                getViewDataBinding().isLoadingPage = true
             }
         }
     }

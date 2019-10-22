@@ -20,6 +20,10 @@
             type="java.lang.Boolean"/>
 
         <variable
+            name="isLoadingPage"
+            type="java.lang.Boolean"/>
+
+        <variable
             name="isError"
             type="java.lang.Boolean"/>
 
@@ -33,7 +37,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -41,6 +45,7 @@
             android:visibility="@{!isLoading &amp;&amp; !isError &amp;&amp; !isEmpty ? View.VISIBLE : View.GONE}">
 
             <TextView
+                android:id="@+id/txt_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -50,8 +55,10 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/txt_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txt_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="You can favorite cars"/>
@@ -60,12 +67,23 @@
                 android:id="@+id/list_vehicles"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_above="@id/loading_page"
+                android:layout_below="@id/txt_subtitle"
                 app:bindListVehicle="@{vehicles}"
                 app:bindListVehicleViewModel="@{viewModel}"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_vehicle"/>
 
-        </LinearLayout>
+            <ProgressBar
+                android:id="@+id/loading_page"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_alignParentBottom="true"
+                android:indeterminate="true"
+                android:visibility="@{isLoadingPage ? View.VISIBLE : View.GONE}"
+                tools:background="@color/tools_green"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
