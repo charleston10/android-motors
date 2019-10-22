@@ -5,219 +5,249 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="model"
             type="br.com.charleston.domain.model.VehicleModel"/>
+
+        <variable
+            name="viewModel"
+            type="br.com.charleston.motors.presentation.screens.vehicle.detail.VehicleDetailViewModel"/>
+
+        <variable
+            name="isLoading"
+            type="java.lang.Boolean"/>
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@{model.model}"
-                android:textColor="@color/textTitle"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="B12 SUPERFAST"/>
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@{model.make}"
-                android:textColor="@color/textLabel"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                tools:text="Ferrari"/>
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@{model.price}"
-                android:textColor="@color/textTitle"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                tools:text="$49000,00"/>
-
-            <ImageView
-                android:id="@+id/imageView2"
-                bindImageUrl="@{model.image}"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
-                tools:src="@drawable/car_example"/>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/carDetailBox"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/background_car_detail"
-                android:padding="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Color"
-                    android:textSize="@dimen/carDetailBoxTextTitle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="4dp"
-                    android:text="@{model.color}"
-                    android:textColor="@color/textLabel"
-                    android:textSize="@dimen/carDetailBoxText"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{model.model}"
+                    android:textColor="@color/textTitle"
+                    android:textSize="22sp"
                     android:textStyle="bold"
-                    tools:text="Blue"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout3"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/carDetailBox"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/background_car_detail"
-                android:padding="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="B12 SUPERFAST"/>
 
                 <TextView
+                    android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KM"
-                    android:textSize="@dimen/carDetailBoxTextTitle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:layout_marginTop="4dp"
+                    android:text="@{model.make}"
                     android:textColor="@color/textLabel"
-                    android:textSize="@dimen/carDetailBoxText"
-                    android:textStyle="bold"
-                    app:bindInt="@{model.km}"
-                    tools:text="47500"/>
-            </RelativeLayout>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5"/>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout2"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/carDetailBox"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/background_car_detail"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4"
+                    tools:text="Ferrari"/>
 
                 <TextView
+                    android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Model"
-                    android:textSize="@dimen/carDetailBoxTextTitle"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:layout_marginTop="4dp"
-                    android:text="@{model.yearModel}"
-                    android:textColor="@color/textLabel"
-                    android:textSize="@dimen/carDetailBoxText"
+                    android:text="@{model.price}"
+                    android:textColor="@color/textTitle"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    tools:text="2019"/>
-            </RelativeLayout>
+                    app:layout_constraintStart_toStartOf="@+id/textView5"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5"
+                    tools:text="$49000,00"/>
 
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="@dimen/carDetailBox"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/background_car_detail"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+                <ImageView
+                    android:id="@+id/imageView2"
+                    bindImageUrl="@{model.image}"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    tools:src="@drawable/car_example"/>
 
-                <TextView
+                <RelativeLayout
+                    android:id="@+id/relativeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/carDetailBox"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/background_car_detail"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Color"
+                        android:textSize="@dimen/carDetailBoxTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="4dp"
+                        android:text="@{model.color}"
+                        android:textColor="@color/textLabel"
+                        android:textSize="@dimen/carDetailBoxText"
+                        android:textStyle="bold"
+                        tools:text="Blue"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/carDetailBox"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/background_car_detail"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="KM"
+                        android:textSize="@dimen/carDetailBoxTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/textLabel"
+                        android:textSize="@dimen/carDetailBoxText"
+                        android:textStyle="bold"
+                        app:bindInt="@{model.km}"
+                        tools:text="47500"/>
+                </RelativeLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Year Fabrication"
-                    android:textSize="@dimen/carDetailBoxTextTitle"/>
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="4dp"
-                    android:text="@{model.yearFab}"
+                <RelativeLayout
+                    android:id="@+id/relativeLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/carDetailBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/background_car_detail"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Model"
+                        android:textSize="@dimen/carDetailBoxTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="4dp"
+                        android:text="@{model.yearModel}"
+                        android:textColor="@color/textLabel"
+                        android:textSize="@dimen/carDetailBoxText"
+                        android:textStyle="bold"
+                        tools:text="2019"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/carDetailBox"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/background_car_detail"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/guideline"
+                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Year Fabrication"
+                        android:textSize="@dimen/carDetailBoxTextTitle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="4dp"
+                        android:text="@{model.yearFab}"
+                        android:textColor="@color/textLabel"
+                        android:textSize="@dimen/carDetailBoxText"
+                        android:textStyle="bold"
+                        tools:text="2019"/>
+                </RelativeLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:enabled="@{!isLoading}"
+                    tools:text="Favorite"
+                    android:onClick="@{() -> viewModel.input.favorite(model)}"
+                    android:text="@{isLoading ? @string/vehicle_detail_button_favoring : @string/vehicle_detail_button_favorite}"
                     android:textColor="@color/textLabel"
-                    android:textSize="@dimen/carDetailBoxText"
-                    android:textStyle="bold"
-                    tools:text="2019"/>
-            </RelativeLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
+                    app:strokeColor="@color/gray_medium"
+                    app:strokeWidth="1dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="Favorite"
-                android:textColor="@color/textLabel"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
-                app:strokeColor="@color/gray_medium"
-                app:strokeWidth="1dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent"/>
+        </LinearLayout>
     </ScrollView>
 </layout>

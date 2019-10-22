@@ -21,4 +21,7 @@
         <item>#9e9e9e</item>
         <item>#607d8b</item>
     </string-array>
+
+    <string name="vehicle_detail_button_favoring">Favoring</string>
+    <string name="vehicle_detail_button_favorite">Favorite</string>
 </resources>

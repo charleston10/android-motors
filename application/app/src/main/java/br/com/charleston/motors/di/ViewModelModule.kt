@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import br.com.charleston.core.viewmodel.ViewModelKey
 import br.com.charleston.motors.presentation.screens.home.HomeViewModel
 import br.com.charleston.motors.presentation.screens.main.MainViewModel
+import br.com.charleston.motors.presentation.screens.vehicle.detail.VehicleDetailViewModel
 import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewModel
 import dagger.Binds
 import dagger.Module
@@ -26,4 +27,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(VehicleViewModel::class)
     abstract fun vehicleViewModel(viewModel: VehicleViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VehicleDetailViewModel::class)
+    abstract fun vehicleDetailViewModel(viewModel: VehicleDetailViewModel): ViewModel
 }
