@@ -15,5 +15,5 @@ interface VehicleDao {
     fun findAll(): Observable<List<VehicleEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(favoriteEntity: VehicleEntity): Completable
+    fun save(favoriteEntity: List<VehicleEntity>)
 }

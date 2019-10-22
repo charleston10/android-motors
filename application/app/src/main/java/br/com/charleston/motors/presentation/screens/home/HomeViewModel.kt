@@ -34,7 +34,6 @@ interface ContractHomeViewModel {
 
 class HomeViewModel @Inject constructor(
     private val getMakeUseCase: GetMakeUseCase,
-    private val getVehicleUseCase: GetVehicleUseCase,
     private val getFavoriteUseCase: GetFavoriteUseCase
 ) : BaseViewModel(),
     ContractHomeViewModel,

@@ -41,16 +41,23 @@ class AppDataRepository(
     }
 
     override fun getVehicles(page: Int): Observable<List<VehicleModel>> {
-        val mapper = VehicleResponseToModelMapper()
+        val mapperResponseToEntity = VehicleResponseToEntitylMapper()
+        val mapperEntityToModel = VehicleEntityToModelMapper()
 
         return cloud.getVehicles(page)
             .map {
-                mapper.transform(it)
+                mapperResponseToEntity.transform(it)
+            }
+            .doOnNext {
+                local.insertListVehicle(it)
+            }
+            .map {
+                mapperEntityToModel.transform(it)
             }
     }
 
-    override fun favorite(vehicleId: Int): Completable {
-        return local.favorite(vehicleId)
+    override fun favorite(vehicleId: Int) {
+        local.favorite(vehicleId)
     }
 
     override fun getFavorites(): Observable<List<VehicleModel>> {

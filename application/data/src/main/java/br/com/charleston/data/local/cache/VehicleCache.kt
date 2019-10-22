@@ -13,8 +13,8 @@ class VehicleCache @Inject constructor(
 
     private val dao by lazy { AppDatabase.getInstance(context).vehicleDao() }
 
-    fun save(entity: VehicleEntity): Completable{
-        return dao.save(entity)
+    fun save(entity: List<VehicleEntity>) {
+        dao.save(entity)
     }
 
     fun findAll(): Observable<List<VehicleEntity>> {

@@ -18,8 +18,12 @@ class SaveFavoriteUseCase @Inject constructor(
 
     override fun buildUseCaseObservable(params: Int?): Observable<Boolean> {
         return if (params != null) {
-            repository.favorite(params)
-                .toObservable()
+            try {
+                repository.favorite(params)
+                Observable.just(true)
+            } catch (e: Exception) {
+                Observable.just(false)
+            }
         } else {
             Observable.error(Throwable())
         }

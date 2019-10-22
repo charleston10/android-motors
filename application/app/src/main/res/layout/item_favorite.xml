@@ -33,7 +33,7 @@
                 <ImageView
                     android:id="@+id/iv_car"
                     android:layout_width="wrap_content"
-                    android:layout_height="150dp"
+                    android:layout_height="100dp"
                     android:scaleType="centerCrop"
                     app:bindImageUrl="@{model.image}"
                     tools:src="@drawable/car_example"/>
@@ -59,8 +59,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:text="@{model.version}"
-                    android:textColor="@color/textTitle"
-                    android:textSize="16sp"
+                    android:textColor="@color/textLabel"
                     tools:text="2.0 EXL 4X4 16V GASOLINA 4P AUTOMÁTICO"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>

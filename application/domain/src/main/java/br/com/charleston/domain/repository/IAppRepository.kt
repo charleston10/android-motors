@@ -10,6 +10,6 @@ interface IAppRepository {
     fun getVersion(modelId: String): Observable<List<VersionModel>>
     fun getVehicles(page: Int): Observable<List<VehicleModel>>
 
-    fun favorite(vehicleId: Int) : Completable
+    fun favorite(vehicleId: Int)
     fun getFavorites(): Observable<List<VehicleModel>>
 }

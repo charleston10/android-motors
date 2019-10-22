@@ -105,7 +105,7 @@ class DataBindingAdapter {
                         GridLayoutManager(recyclerView.context, 2)
                     recyclerView.setHasFixedSize(true)
                 } else {
-                    (recyclerView.adapter  as? FavoriteAdapter)?.addAll(items.toList())
+                    (recyclerView.adapter  as? FavoriteAdapter)?.refreshList(items.toList())
                 }
             }
         }

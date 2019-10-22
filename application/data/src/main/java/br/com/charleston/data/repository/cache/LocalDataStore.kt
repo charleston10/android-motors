@@ -13,7 +13,7 @@ class LocalDataStore @Inject constructor(
     private val vehicleCache: VehicleCache
 ) {
 
-    fun favorite(vehicleId: Int): Completable {
+    fun favorite(vehicleId: Int) {
         return favoriteCache.save(
             entity = FavoriteEntity(
                 vehicleId = vehicleId
@@ -29,7 +29,7 @@ class LocalDataStore @Inject constructor(
         return vehicleCache.findAll()
     }
 
-    fun insertVehicle(vehicleEntity: VehicleEntity) {
+    fun insertListVehicle(vehicleEntity: List<VehicleEntity>) {
         vehicleCache.save(vehicleEntity)
     }
 }

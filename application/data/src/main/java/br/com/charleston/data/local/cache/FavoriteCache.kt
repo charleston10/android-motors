@@ -14,8 +14,8 @@ class FavoriteCache @Inject constructor(
 
     private val dao by lazy { AppDatabase.getInstance(context).favoriteDao() }
 
-    fun save(entity: FavoriteEntity): Completable {
-        return dao.save(entity)
+    fun save(entity: FavoriteEntity) {
+        dao.save(entity)
     }
 
     fun findAll(): Observable<List<VehicleEntity>> {
