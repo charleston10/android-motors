@@ -8,6 +8,10 @@
         <import type="android.view.View"/>
 
         <variable
+            name="viewModel"
+            type="br.com.charleston.motors.presentation.screens.home.HomeViewModel"/>
+
+        <variable
             name="vehicles"
             type="br.com.charleston.domain.model.VehicleModel[]"/>
 
@@ -33,12 +37,14 @@
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="@{!isEmpty ? View.VISIBLE : View.GONE}"
             app:bindListFavorite="@{vehicles}"
+            app:bindListFavoriteViewModel="@{viewModel}"
             tools:itemCount="3"
             tools:listitem="@layout/item_favorite"
             tools:visibility="gone"/>
@@ -60,11 +66,11 @@
                 tools:visibility="visible"/>
 
             <TextView
-                android:textColor="@color/textLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="No has favorite car"/>
+                android:text="No has favorite car"
+                android:textColor="@color/textLabel"/>
 
         </LinearLayout>
     </LinearLayout>

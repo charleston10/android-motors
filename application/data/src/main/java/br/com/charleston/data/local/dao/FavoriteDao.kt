@@ -1,9 +1,6 @@
 package br.com.charleston.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import br.com.charleston.data.local.entity.FavoriteEntity
 import br.com.charleston.data.local.entity.VehicleEntity
 import io.reactivex.Completable
@@ -17,4 +14,7 @@ interface FavoriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(favoriteEntity: FavoriteEntity)
+
+    @Query("DELETE FROM favorite WHERE vehicleId = :vehicleId")
+    fun remove(vehicleId: Int)
 }

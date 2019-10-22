@@ -32,4 +32,8 @@ class LocalDataStore @Inject constructor(
     fun insertListVehicle(vehicleEntity: List<VehicleEntity>) {
         vehicleCache.save(vehicleEntity)
     }
+
+    fun removeFavorite(vehicleId: Int) {
+        favoriteCache.remove(vehicleId)
+    }
 }

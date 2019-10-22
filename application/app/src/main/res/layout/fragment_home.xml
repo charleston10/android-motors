@@ -45,6 +45,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/include_container_make"
             android:layout_marginTop="8dp"
-            bind:vehicles="@{vehicles}"/>
+            bind:vehicles="@{vehicles}"
+            bind:viewModel="@{viewModel}"/>
     </RelativeLayout>
 </layout>

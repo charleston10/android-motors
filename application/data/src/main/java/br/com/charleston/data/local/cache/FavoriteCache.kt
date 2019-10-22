@@ -21,4 +21,8 @@ class FavoriteCache @Inject constructor(
     fun findAll(): Observable<List<VehicleEntity>> {
         return dao.findAll()
     }
+
+    fun remove(vehicleId: Int) {
+        dao.remove(vehicleId)
+    }
 }

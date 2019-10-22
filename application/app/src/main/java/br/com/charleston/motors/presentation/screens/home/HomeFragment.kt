@@ -7,8 +7,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import br.com.charleston.core.base.BaseFragment
 import br.com.charleston.domain.model.MakeModel
+import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentHomeBinding
+import android.widget.PopupMenu
+import android.widget.Toast
+import br.com.charleston.motors.presentation.adapters.FavoriteAdapter
+
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
@@ -61,6 +66,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             is FavoriteState.Success -> {
                 getViewDataBinding().includeContainerFavorite.isEmpty = false
             }
+            is FavoriteState.Remove -> {
+                showPopUpFavoriteAction(
+                    favoriteState.anchor,
+                    favoriteState.vehicleModel,
+                    favoriteState.position
+                )
+            }
+            is FavoriteState.Removed -> {
+                removeFavoriteItemOnList(favoriteState.position)
+                showMessageFavoriteRemove(favoriteState.vehicleModel.model)
+            }
+            is FavoriteState.RemoveFail -> {
+                showMessageFavoriteRemoveFail()
+            }
         }
     }
 
@@ -75,7 +94,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    private fun bindView(){
+    private fun bindView() {
         getViewDataBinding().viewModel = getViewModel()
+    }
+
+    private fun showPopUpFavoriteAction(anchor: View, vehicleModel: VehicleModel, position: Int) {
+        PopupMenu(this.context, anchor).apply {
+            menuInflater.inflate(R.menu.menu_favorite, this.menu)
+            setOnMenuItemClickListener {
+                getViewModel().input.removeFavorite(vehicleModel, position)
+                true
+            }
+        }.show()
+    }
+
+    private fun showMessageFavoriteRemove(value: String) {
+        Toast.makeText(this.context, "Favorite $value removed", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun removeFavoriteItemOnList(position: Int) {
+        (getViewDataBinding().includeContainerFavorite.listFavorite.adapter as? FavoriteAdapter)?.remove(
+            position
+        )
+    }
+
+    private fun showMessageFavoriteRemoveFail() {
+        Toast.makeText(this.context, "Fail on remove favorite", Toast.LENGTH_SHORT).show()
     }
 }

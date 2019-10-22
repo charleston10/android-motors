@@ -1,6 +1,7 @@
 package br.com.charleston.motors.presentation.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import br.com.charleston.core.base.BaseAdapter
@@ -9,7 +10,13 @@ import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.ItemFavoriteBinding
 
-class FavoriteAdapter : BaseAdapter<VehicleModel, FavoriteAdapter.FavoriteAdapterViewHolder>() {
+interface FavoriteAdapterListener {
+    fun onFavoriteSelected(anchor: View, vehicleModel: VehicleModel, position: Int)
+}
+
+class FavoriteAdapter(
+    private val listener: FavoriteAdapterListener
+) : BaseAdapter<VehicleModel, FavoriteAdapter.FavoriteAdapterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdapterViewHolder {
         return FavoriteAdapterViewHolder(
@@ -27,6 +34,10 @@ class FavoriteAdapter : BaseAdapter<VehicleModel, FavoriteAdapter.FavoriteAdapte
         override fun bind(model: VehicleModel) {
             item.run {
                 this.model = model
+                this.ivCar.setOnLongClickListener {
+                    listener.onFavoriteSelected(it, model, adapterPosition)
+                    true
+                }
                 executePendingBindings()
             }
         }

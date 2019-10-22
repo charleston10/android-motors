@@ -1,5 +1,6 @@
 package br.com.charleston.motors.presentation.screens.home
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.charleston.core.ActionLiveData
@@ -8,6 +9,7 @@ import br.com.charleston.domain.DefaultObserver
 import br.com.charleston.domain.interactor.GetFavoriteUseCase
 import br.com.charleston.domain.interactor.GetMakeUseCase
 import br.com.charleston.domain.interactor.GetVehicleUseCase
+import br.com.charleston.domain.interactor.RemoveFavoriteUseCase
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import java.util.*
@@ -17,6 +19,8 @@ import javax.inject.Inject
 interface InputHomeViewModel {
     fun initialize()
     fun onSelectMake(makeModel: MakeModel)
+    fun onSelectVehicle(anchor: View, vehicleModel: VehicleModel, position: Int)
+    fun removeFavorite(vehicleModel: VehicleModel, position: Int)
 }
 
 interface OutputHomeViewModel {
@@ -34,7 +38,8 @@ interface ContractHomeViewModel {
 
 class HomeViewModel @Inject constructor(
     private val getMakeUseCase: GetMakeUseCase,
-    private val getFavoriteUseCase: GetFavoriteUseCase
+    private val getFavoriteUseCase: GetFavoriteUseCase,
+    private val removeFavoriteUseCase: RemoveFavoriteUseCase
 ) : BaseViewModel(),
     ContractHomeViewModel,
     InputHomeViewModel,
@@ -62,6 +67,28 @@ class HomeViewModel @Inject constructor(
 
     override fun onSelectMake(makeModel: MakeModel) {
         makeSelectObserverEvent.postValue(makeModel)
+    }
+
+    override fun onSelectVehicle(anchor: View, vehicleModel: VehicleModel, position: Int) {
+        favoriteEvent.postValue(FavoriteState.Remove(anchor, vehicleModel, position))
+    }
+
+    override fun removeFavorite(vehicleModel: VehicleModel, position: Int) {
+        removeFavoriteUseCase.execute(object : DefaultObserver<Boolean>() {
+            override fun onNext(t: Boolean) {
+                if (t) {
+                    favoriteEvent.postValue(FavoriteState.Removed(position, vehicleModel))
+                } else {
+                    favoriteEvent.postValue(FavoriteState.RemoveFail)
+                }
+            }
+
+            override fun onError(exception: Throwable) {
+                super.onError(exception)
+                exception.printStackTrace()
+                favoriteEvent.postValue(FavoriteState.RemoveFail)
+            }
+        }, vehicleModel.id)
     }
 
     private fun getMakes() {

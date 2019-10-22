@@ -12,4 +12,5 @@ interface IAppRepository {
 
     fun favorite(vehicleId: Int)
     fun getFavorites(): Observable<List<VehicleModel>>
+    fun removeFavorite(vehicleId: Int)
 }

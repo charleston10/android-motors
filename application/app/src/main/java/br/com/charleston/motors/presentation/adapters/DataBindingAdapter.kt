@@ -1,5 +1,6 @@
 package br.com.charleston.motors.presentation.adapters
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -13,6 +14,7 @@ import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewMod
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import java.text.FieldPosition
 
 class DataBindingAdapter {
 
@@ -93,14 +95,22 @@ class DataBindingAdapter {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["bindListFavorite"], requireAll = false)
-        fun bindListFavorite(recyclerView: RecyclerView, items: Array<VehicleModel>?) {
+        @BindingAdapter(value = ["bindListFavorite", "bindListFavoriteViewModel"], requireAll = false)
+        fun bindListFavorite(
+            recyclerView: RecyclerView,
+            items: Array<VehicleModel>?,
+            viewModel: HomeViewModel?
+        ) {
             items?.let {
                 if (recyclerView.adapter == null) {
-                    recyclerView.adapter = FavoriteAdapter()
-                        .apply {
-                            this.items = items.toList()
+                    recyclerView.adapter = FavoriteAdapter(object : FavoriteAdapterListener {
+                        override fun onFavoriteSelected(anchor: View, vehicleModel: VehicleModel, position: Int) {
+                            viewModel?.input?.onSelectVehicle(anchor, vehicleModel, position)
                         }
+
+                    }).apply {
+                        this.items = items.toList()
+                    }
                     recyclerView.layoutManager =
                         GridLayoutManager(recyclerView.context, 2)
                     recyclerView.setHasFixedSize(true)

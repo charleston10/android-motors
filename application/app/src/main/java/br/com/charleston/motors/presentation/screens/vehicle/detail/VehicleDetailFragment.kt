@@ -62,11 +62,11 @@ class VehicleDetailFragment : BaseFragment<FragmentVehicleDetailBinding, Vehicle
     }
 
     private fun showMessageError() {
-        Toast.makeText(this.context, "Error in favoriting", Toast.LENGTH_LONG).show()
+        Toast.makeText(this.context, "Error in favoring", Toast.LENGTH_SHORT).show()
     }
 
     private fun showMessageSuccess() {
-        Toast.makeText(this.context, "Success favorite", Toast.LENGTH_LONG).show()
+        Toast.makeText(this.context, "Success favorite", Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(value: Boolean) {

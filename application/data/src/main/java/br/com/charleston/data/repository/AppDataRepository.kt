@@ -66,4 +66,8 @@ class AppDataRepository(
         return local.findFavorites()
             .map { mapper.transform(it) }
     }
+
+    override fun removeFavorite(vehicleId: Int) {
+        local.removeFavorite(vehicleId)
+    }
 }
