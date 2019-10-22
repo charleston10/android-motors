@@ -50,6 +50,7 @@ class VehicleViewModel @Inject constructor(
     override val vehicleListLiveData: LiveData<List<VehicleModel>> get() = vehicleListMutableLiveData
 
     override fun findVehicles(makeModel: MakeModel) {
+        this.makeModel = makeModel
         getVehicles(makeModel)
     }
 
