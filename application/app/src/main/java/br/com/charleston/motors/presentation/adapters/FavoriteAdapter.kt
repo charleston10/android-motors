@@ -11,7 +11,8 @@ import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.ItemFavoriteBinding
 
 interface FavoriteAdapterListener {
-    fun onFavoriteSelected(anchor: View, vehicleModel: VehicleModel, position: Int)
+    fun onFavoriteLongSelected(anchor: View, vehicleModel: VehicleModel, position: Int)
+    fun onFavoriteShortSelected(vehicleModel: VehicleModel)
 }
 
 class FavoriteAdapter(
@@ -34,9 +35,12 @@ class FavoriteAdapter(
         override fun bind(model: VehicleModel) {
             item.run {
                 this.model = model
-                this.ivCar.setOnLongClickListener {
-                    listener.onFavoriteSelected(it, model, adapterPosition)
+                this.root.setOnLongClickListener {
+                    listener.onFavoriteLongSelected(it, model, adapterPosition)
                     true
+                }
+                this.root.setOnClickListener {
+                    listener.onFavoriteShortSelected(model)
                 }
                 executePendingBindings()
             }

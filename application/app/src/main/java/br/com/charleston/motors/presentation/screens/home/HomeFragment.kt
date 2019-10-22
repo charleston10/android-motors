@@ -58,8 +58,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    private fun handlerState(favoriteState: FavoriteState) {
-        when (favoriteState) {
+    private fun handlerState(state: FavoriteState) {
+        when (state) {
             is FavoriteState.Empty -> {
                 getViewDataBinding().includeContainerFavorite.isEmpty = true
             }
@@ -68,17 +68,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
             is FavoriteState.Remove -> {
                 showPopUpFavoriteAction(
-                    favoriteState.anchor,
-                    favoriteState.vehicleModel,
-                    favoriteState.position
+                    state.anchor,
+                    state.vehicleModel,
+                    state.position
                 )
             }
             is FavoriteState.Removed -> {
-                removeFavoriteItemOnList(favoriteState.position)
-                showMessageFavoriteRemove(favoriteState.vehicleModel.model)
+                removeFavoriteItemOnList(state.position)
+                showMessageFavoriteRemove(state.vehicleModel.model)
             }
             is FavoriteState.RemoveFail -> {
                 showMessageFavoriteRemoveFail()
+            }
+            is FavoriteState.StartDetail -> {
+                startDetail(state.vehicleModel)
             }
         }
     }
@@ -87,6 +90,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         view?.let {
             val action = HomeFragmentDirections
                 .actionHomeFragmentToVehicleFragment(makeModel)
+
+            Navigation
+                .findNavController(it)
+                .navigate(action)
+        }
+    }
+
+    private fun startDetail(vehicleModel: VehicleModel) {
+        view?.let {
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToVehicleDetailFragment(vehicleModel)
 
             Navigation
                 .findNavController(it)

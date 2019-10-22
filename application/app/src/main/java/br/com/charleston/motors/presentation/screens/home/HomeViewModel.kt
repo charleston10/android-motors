@@ -19,7 +19,8 @@ import javax.inject.Inject
 interface InputHomeViewModel {
     fun initialize()
     fun onSelectMake(makeModel: MakeModel)
-    fun onSelectVehicle(anchor: View, vehicleModel: VehicleModel, position: Int)
+    fun onSelectLongVehicle(anchor: View, vehicleModel: VehicleModel, position: Int)
+    fun onSelectShortVehicle(vehicleModel: VehicleModel)
     fun removeFavorite(vehicleModel: VehicleModel, position: Int)
 }
 
@@ -69,8 +70,12 @@ class HomeViewModel @Inject constructor(
         makeSelectObserverEvent.postValue(makeModel)
     }
 
-    override fun onSelectVehicle(anchor: View, vehicleModel: VehicleModel, position: Int) {
+    override fun onSelectLongVehicle(anchor: View, vehicleModel: VehicleModel, position: Int) {
         favoriteEvent.postValue(FavoriteState.Remove(anchor, vehicleModel, position))
+    }
+
+    override fun onSelectShortVehicle(vehicleModel: VehicleModel) {
+        favoriteEvent.postValue(FavoriteState.StartDetail(vehicleModel))
     }
 
     override fun removeFavorite(vehicleModel: VehicleModel, position: Int) {
