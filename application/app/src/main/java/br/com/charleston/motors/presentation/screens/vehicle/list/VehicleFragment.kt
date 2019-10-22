@@ -13,6 +13,7 @@ import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentVehicleBinding
 import br.com.charleston.motors.presentation.adapters.VehicleAdapter
 import br.com.charleston.motors.presentation.screens.home.HomeFragmentDirections
+import br.com.charleston.motors.presentation.screens.vehicle.detail.VehicleDetailFragmentArgs
 
 class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>() {
 
@@ -21,6 +22,7 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
         observerViewModel()
         bindView()
         setupScroll()
+        filter()
         getViewModel().input.findAllVehicles()
     }
 
@@ -119,5 +121,13 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
                 }
             }
         })
+    }
+
+    private fun filter() {
+        arguments?.let {
+            val safeArgs = VehicleFragmentArgs.fromBundle(it)
+            val model = safeArgs.makeModel
+            getViewDataBinding().make = model
+        }
     }
 }

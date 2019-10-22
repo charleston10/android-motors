@@ -16,6 +16,10 @@
             type="br.com.charleston.domain.model.VehicleModel[]"/>
 
         <variable
+            name="make"
+            type="br.com.charleston.domain.model.MakeModel"/>
+
+        <variable
             name="isLoading"
             type="java.lang.Boolean"/>
 
@@ -61,7 +65,9 @@
                 android:layout_below="@id/txt_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:text="You can favorite cars"/>
+                app:bindFilterDescription="@{make}"
+                tools:text="Showing all cars"
+                android:textColor="@color/textLabel"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_vehicles"

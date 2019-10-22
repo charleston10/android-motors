@@ -137,5 +137,19 @@ class DataBindingAdapter {
                 }
             }
         }
+
+        @JvmStatic
+        @BindingAdapter(value = ["bindFilterDescription"], requireAll = false)
+        fun bindFilterDescription(textView: TextView, makeModel: MakeModel?) {
+            makeModel?.let {
+                val text = if (it.id == 0) {
+                    "Showing all cars"
+                } else {
+                    String.format("Showing cars by %s", it.name)
+                }
+
+                textView.text = text
+            }
+        }
     }
 }
