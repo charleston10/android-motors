@@ -1,4 +1,4 @@
-package br.com.charleston.motors.presentation.screens.vehicle
+package br.com.charleston.motors.presentation.screens.vehicle.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,6 @@ import br.com.charleston.core.ActionLiveData
 import br.com.charleston.core.base.BaseViewModel
 import br.com.charleston.domain.DefaultObserver
 import br.com.charleston.domain.interactor.GetVehicleUseCase
-import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import javax.inject.Inject
 
@@ -58,7 +57,11 @@ class VehicleViewModel @Inject constructor(
     }
 
     override fun onSelectVehicle(vehicleModel: VehicleModel) {
-
+        vehicleObserverEvent.postValue(
+            VehicleState.StartDetail(
+                vehicleModel
+            )
+        )
     }
 
     private fun getVehicles() {

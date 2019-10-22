@@ -17,4 +17,8 @@
 
     <!-- tab layout -->
     <dimen name="tabIndicatorHeight">4dp</dimen>
+
+    <dimen name="carDetailBox">80dp</dimen>
+    <dimen name="carDetailBoxTextTitle">16sp</dimen>
+    <dimen name="carDetailBoxText">22sp</dimen>
 </resources>

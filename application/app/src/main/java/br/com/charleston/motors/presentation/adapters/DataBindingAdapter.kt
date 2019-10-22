@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.presentation.screens.home.HomeViewModel
-import br.com.charleston.motors.presentation.screens.vehicle.VehicleViewModel
+import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -17,6 +17,14 @@ import com.bumptech.glide.request.RequestOptions
 class DataBindingAdapter {
 
     companion object {
+
+        @JvmStatic
+        @BindingAdapter(value = ["bindInt"], requireAll = false)
+        fun bindInt(textView: TextView, value: Int?) {
+            value?.let {
+                textView.text = String.format("%d", it)
+            }
+        }
 
         @JvmStatic
         @BindingAdapter(value = ["bindImageUrl"], requireAll = false)

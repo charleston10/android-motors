@@ -1,5 +1,9 @@
 package br.com.charleston.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class VehicleModel(
     val id: Int,
     val make: String,
@@ -11,4 +15,4 @@ data class VehicleModel(
     val yearModel: String,
     val yearFab: String,
     val color: String
-)
+) : Parcelable

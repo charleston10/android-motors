@@ -21,11 +21,27 @@
 
     <fragment
         android:id="@+id/vehicleFragment"
-        android:name="br.com.charleston.motors.presentation.screens.vehicle.VehicleFragment"
+        android:name="br.com.charleston.motors.presentation.screens.vehicle.list.VehicleFragment"
         android:label="VehicleFragment"
         tools:layout="@layout/fragment_vehicle">
         <argument
             android:name="makeModel"
             app:argType="br.com.charleston.domain.model.MakeModel"/>
+        <action
+            android:id="@+id/action_vehicleFragment_to_vehicleDetailFragment"
+            app:destination="@id/vehicleDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/vehicleDetailFragment"
+        android:name="br.com.charleston.motors.presentation.screens.vehicle.detail.VehicleDetailFragment"
+        android:label="VehicleDetailFragment"
+        tools:layout="@layout/fragment_vehicle_detail">
+        <argument
+            android:name="vehicleModel"
+            app:argType="br.com.charleston.domain.model.VehicleModel"/>
     </fragment>
 </navigation>

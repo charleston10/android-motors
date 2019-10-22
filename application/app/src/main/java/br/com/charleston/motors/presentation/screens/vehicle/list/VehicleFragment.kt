@@ -1,15 +1,18 @@
-package br.com.charleston.motors.presentation.screens.vehicle
+package br.com.charleston.motors.presentation.screens.vehicle.list
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.core.base.BaseFragment
+import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentVehicleBinding
 import br.com.charleston.motors.presentation.adapters.VehicleAdapter
+import br.com.charleston.motors.presentation.screens.home.HomeFragmentDirections
 
 class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>() {
 
@@ -81,6 +84,21 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
                 getViewDataBinding().isError = false
                 getViewDataBinding().isLoadingPage = true
             }
+
+            is VehicleState.StartDetail -> {
+                startDetail(state.model)
+            }
+        }
+    }
+
+    private fun startDetail(model: VehicleModel) {
+        view?.let {
+            val action = VehicleFragmentDirections
+                .actionVehicleFragmentToVehicleDetailFragment(model)
+
+            Navigation
+                .findNavController(it)
+                .navigate(action)
         }
     }
 

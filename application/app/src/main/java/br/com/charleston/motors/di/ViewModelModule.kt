@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import br.com.charleston.core.viewmodel.ViewModelKey
 import br.com.charleston.motors.presentation.screens.home.HomeViewModel
 import br.com.charleston.motors.presentation.screens.main.MainViewModel
-import br.com.charleston.motors.presentation.screens.vehicle.VehicleViewModel
+import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
