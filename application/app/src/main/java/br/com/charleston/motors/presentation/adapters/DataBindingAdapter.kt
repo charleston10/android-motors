@@ -1,5 +1,7 @@
 package br.com.charleston.motors.presentation.adapters
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +16,7 @@ import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewMod
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.textfield.TextInputLayout
 
 class DataBindingAdapter {
 
@@ -170,6 +173,32 @@ class DataBindingAdapter {
 
                 textView.text = text
             }
+        }
+
+        @JvmStatic
+        @BindingAdapter(value = ["bindSearch"], requireAll = false)
+        fun bindSearch(textInput: TextInputLayout, viewModel: HomeViewModel?) {
+            textInput.setEndIconOnClickListener {
+                viewModel?.input?.filterFavorite(textInput.editText?.text.toString())
+            }
+            textInput.editText?.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    s?.isEmpty()?.let {
+                        viewModel?.input?.filterFavorite("")
+                    } ?: viewModel?.input?.filterFavorite("")
+                }
+            })
         }
     }
 }

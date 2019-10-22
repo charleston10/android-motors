@@ -3,6 +3,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="br.com.charleston.motors.presentation.screens.home.HomeViewModel"/>
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,16 +22,17 @@
         android:paddingBottom="4dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_name"
+            android:id="@+id/txt_input_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:bindSearch="@{viewModel}"
             app:endIconDrawable="@drawable/ic_search"
             app:endIconMode="custom"
             app:hintEnabled="false"
             tools:layout_height="60dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/user_name"
+                android:id="@+id/txt_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Search your favorite car"

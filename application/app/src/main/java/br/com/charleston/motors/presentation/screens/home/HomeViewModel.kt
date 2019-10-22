@@ -6,10 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import br.com.charleston.core.ActionLiveData
 import br.com.charleston.core.base.BaseViewModel
 import br.com.charleston.domain.DefaultObserver
-import br.com.charleston.domain.interactor.GetFavoriteUseCase
-import br.com.charleston.domain.interactor.GetMakeUseCase
-import br.com.charleston.domain.interactor.GetVehicleUseCase
-import br.com.charleston.domain.interactor.RemoveFavoriteUseCase
+import br.com.charleston.domain.interactor.*
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import java.util.*
@@ -22,6 +19,7 @@ interface InputHomeViewModel {
     fun onSelectLongVehicle(anchor: View, vehicleModel: VehicleModel, position: Int)
     fun onSelectShortVehicle(vehicleModel: VehicleModel)
     fun removeFavorite(vehicleModel: VehicleModel, position: Int)
+    fun filterFavorite(filter: String)
 }
 
 interface OutputHomeViewModel {
@@ -40,7 +38,8 @@ interface ContractHomeViewModel {
 class HomeViewModel @Inject constructor(
     private val getMakeUseCase: GetMakeUseCase,
     private val getFavoriteUseCase: GetFavoriteUseCase,
-    private val removeFavoriteUseCase: RemoveFavoriteUseCase
+    private val removeFavoriteUseCase: RemoveFavoriteUseCase,
+    private val filterFavoriteUseCase: FilterFavoriteUseCase
 ) : BaseViewModel(),
     ContractHomeViewModel,
     InputHomeViewModel,
@@ -76,6 +75,25 @@ class HomeViewModel @Inject constructor(
 
     override fun onSelectShortVehicle(vehicleModel: VehicleModel) {
         favoriteEvent.postValue(FavoriteState.StartDetail(vehicleModel))
+    }
+
+    override fun filterFavorite(filter: String) {
+        vehicleMutableLiveData.value?.let { list ->
+            filterFavoriteUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
+                override fun onNext(t: List<VehicleModel>) {
+                    if (t.isEmpty()) {
+                        favoriteEvent.postValue(FavoriteState.FilterNoResult)
+                    } else {
+                        favoriteEvent.postValue(FavoriteState.FilterSuccess(t))
+                    }
+                }
+
+                override fun onError(exception: Throwable) {
+                    super.onError(exception)
+                    exception.printStackTrace()
+                }
+            }, Pair(filter, list))
+        }
     }
 
     override fun removeFavorite(vehicleModel: VehicleModel, position: Int) {

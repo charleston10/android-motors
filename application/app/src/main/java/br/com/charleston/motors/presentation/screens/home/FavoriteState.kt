@@ -16,4 +16,7 @@ sealed class FavoriteState {
     class Removed(val position: Int, val vehicleModel: VehicleModel) : FavoriteState()
     object RemoveFail : FavoriteState()
     class StartDetail(val vehicleModel: VehicleModel) : FavoriteState()
+
+    object FilterNoResult : FavoriteState()
+    class FilterSuccess(val list: List<VehicleModel>) : FavoriteState()
 }

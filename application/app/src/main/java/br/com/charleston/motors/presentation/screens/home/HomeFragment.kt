@@ -13,6 +13,7 @@ import br.com.charleston.motors.databinding.FragmentHomeBinding
 import android.widget.PopupMenu
 import android.widget.Toast
 import br.com.charleston.motors.presentation.adapters.FavoriteAdapter
+import com.google.android.material.textfield.TextInputLayout
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -63,9 +64,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             is FavoriteState.Empty -> {
                 getViewDataBinding().includeContainerFavorite.isEmpty = true
             }
+
             is FavoriteState.Success -> {
                 getViewDataBinding().includeContainerFavorite.isEmpty = false
             }
+
             is FavoriteState.Remove -> {
                 showPopUpFavoriteAction(
                     state.anchor,
@@ -73,15 +76,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     state.position
                 )
             }
+
             is FavoriteState.Removed -> {
                 removeFavoriteItemOnList(state.position)
                 showMessageFavoriteRemove(state.vehicleModel.model)
             }
+
             is FavoriteState.RemoveFail -> {
                 showMessageFavoriteRemoveFail()
             }
+
             is FavoriteState.StartDetail -> {
                 startDetail(state.vehicleModel)
+            }
+
+            is FavoriteState.FilterSuccess -> {
+                getViewDataBinding().includeContainerFavorite.vehicles = state.list.toTypedArray()
             }
         }
     }
