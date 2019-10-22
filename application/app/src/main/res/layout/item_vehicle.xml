@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textColor="@color/textLabel"
             app:bindCarName="@{model}"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{model.version}"
+            android:textColor="@color/textLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -52,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{model.price}"
+            android:textColor="@color/textLabel"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             tools:text="59000,00"/>

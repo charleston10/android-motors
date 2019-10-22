@@ -14,11 +14,17 @@ class GetVehicleUseCase @Inject constructor(
     private val repository: IAppRepository,
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread
-) : UseCase<List<VehicleModel>, Int>(threadExecutor, postExecutionThread) {
+) : UseCase<List<VehicleModel>, Pair<Int, MakeModel>>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: Int?): Observable<List<VehicleModel>> {
+    override fun buildUseCaseObservable(params: Pair<Int, MakeModel>?): Observable<List<VehicleModel>> {
         return if (params != null) {
-            repository.getVehicles(params)
+            repository.getVehicles(params.first)
+                .flatMapIterable { it }
+                .filter {
+                    it.make == params.second.name
+                }
+                .toList()
+                .toObservable()
         } else {
             Observable.error<List<VehicleModel>>(Throwable())
         }

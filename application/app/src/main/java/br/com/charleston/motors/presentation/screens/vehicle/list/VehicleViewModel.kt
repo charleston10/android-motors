@@ -6,12 +6,13 @@ import br.com.charleston.core.ActionLiveData
 import br.com.charleston.core.base.BaseViewModel
 import br.com.charleston.domain.DefaultObserver
 import br.com.charleston.domain.interactor.GetVehicleUseCase
+import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import java.util.*
 import javax.inject.Inject
 
 interface InputVehicleViewModel {
-    fun findAllVehicles()
+    fun findVehicles(makeModel: MakeModel)
     fun nextVehiclePage()
     fun onSelectVehicle(vehicleModel: VehicleModel)
 }
@@ -37,6 +38,7 @@ class VehicleViewModel @Inject constructor(
     private var perPage = 10
     private var breakPagination = false
     private val list: ArrayList<VehicleModel> = arrayListOf()
+    private var makeModel: MakeModel? = null
 
     override val input: InputVehicleViewModel get() = this
     override val output: OutputVehicleViewModel get() = this
@@ -47,14 +49,14 @@ class VehicleViewModel @Inject constructor(
     private val vehicleListMutableLiveData = MutableLiveData<List<VehicleModel>>()
     override val vehicleListLiveData: LiveData<List<VehicleModel>> get() = vehicleListMutableLiveData
 
-    override fun findAllVehicles() {
-        getVehicles()
+    override fun findVehicles(makeModel: MakeModel) {
+        getVehicles(makeModel)
     }
 
     override fun nextVehiclePage() {
-        if (!breakPagination) {
+        if (!breakPagination && makeModel != null) {
             vehiclePage++
-            getVehicles()
+            getVehicles(makeModel!!)
         }
     }
 
@@ -66,17 +68,17 @@ class VehicleViewModel @Inject constructor(
         )
     }
 
-    private fun getVehicles() {
+    private fun getVehicles(makeModel: MakeModel) {
         getVehicleUseCase.execute(object : DefaultObserver<List<VehicleModel>>() {
             override fun onStart() {
                 super.onStart()
                 vehicleListMutableLiveData.value?.size?.let {
                     if (it == 0) {
-                        vehicleObserverEvent.postValue(VehicleState.Loading)
+                        showContentLoading()
                     } else {
-                        vehicleObserverEvent.postValue(VehicleState.LoadingPage)
+                        showLoadingMoreItems()
                     }
-                }
+                } ?: showContentLoading()
             }
 
             override fun onNext(t: List<VehicleModel>) {
@@ -87,7 +89,7 @@ class VehicleViewModel @Inject constructor(
                 super.onError(exception)
                 vehicleObserverEvent.postValue(VehicleState.Error)
             }
-        }, vehiclePage)
+        }, Pair(vehiclePage, makeModel))
     }
 
     private fun handlerSuccess(items: List<VehicleModel>) {
@@ -95,7 +97,7 @@ class VehicleViewModel @Inject constructor(
             vehicleObserverEvent.postValue(VehicleState.Empty)
         } else {
             if (!breakPagination) list.addAll(items)
-            
+
             vehicleObserverEvent.postValue(VehicleState.Success)
             vehicleListMutableLiveData.postValue(list)
             treatPage(items.size)
@@ -106,5 +108,13 @@ class VehicleViewModel @Inject constructor(
         if (total < perPage) {
             breakPagination = true
         }
+    }
+
+    private fun showContentLoading() {
+        vehicleObserverEvent.postValue(VehicleState.Loading)
+    }
+
+    private fun showLoadingMoreItems() {
+        vehicleObserverEvent.postValue(VehicleState.LoadingPage)
     }
 }
