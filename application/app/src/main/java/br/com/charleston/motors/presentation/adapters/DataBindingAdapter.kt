@@ -85,7 +85,7 @@ class DataBindingAdapter {
             viewModel: HomeViewModel?
         ) {
             items?.let {
-                recyclerView.adapter = MakeAdapter(object : MakeAdapterListener {
+                val adapter = MakeAdapter(object : MakeAdapterListener {
                     override fun onMakeSelect(makeModel: MakeModel) {
                         viewModel?.input?.onSelectMake(makeModel)
                     }
@@ -93,6 +93,7 @@ class DataBindingAdapter {
                 }).apply {
                     this.items = items.toList()
                 }
+                recyclerView.adapter = adapter
                 recyclerView.layoutManager =
                     LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
             }
@@ -152,7 +153,7 @@ class DataBindingAdapter {
                             carImageView: ImageView,
                             vehicleModel: VehicleModel
                         ) {
-                            viewModel?.input?.onSelectVehicle(vehicleModel)
+                            viewModel?.input?.onSelectVehicle(carImageView, vehicleModel)
                         }
                     }).apply {
                         this.items = items.toList()

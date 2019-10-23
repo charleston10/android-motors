@@ -22,7 +22,6 @@
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:transitionName="@string/transition_image_car"
             app:bindImageUrl="@{model.image}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

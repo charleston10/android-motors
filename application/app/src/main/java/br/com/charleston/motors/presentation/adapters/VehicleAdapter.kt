@@ -37,6 +37,7 @@ class VehicleAdapter(
         override fun bind(model: VehicleModel) {
             item.run {
                 this.model = model
+                this.imageView.transitionName = model.id.toString()
                 root.setOnClickListener {
                     listener.onVehicleSelect(this.imageView, model)
                 }

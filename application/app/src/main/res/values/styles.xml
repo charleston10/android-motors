@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorLightPrimary</item>
         <item name="textInputStyle">@style/AppTextField</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="AppTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

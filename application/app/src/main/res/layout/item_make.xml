@@ -16,7 +16,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:padding="16dp"
-        app:cardBackgroundColor="@color/blue"
+        app:cardBackgroundColor="@null"
         app:cardCornerRadius="8dp">
 
         <RelativeLayout

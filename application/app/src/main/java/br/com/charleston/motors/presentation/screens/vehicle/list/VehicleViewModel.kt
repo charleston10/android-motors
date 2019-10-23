@@ -1,5 +1,6 @@
 package br.com.charleston.motors.presentation.screens.vehicle.list
 
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.charleston.core.ActionLiveData
@@ -14,7 +15,7 @@ import javax.inject.Inject
 interface InputVehicleViewModel {
     fun findVehicles(makeModel: MakeModel)
     fun nextVehiclePage()
-    fun onSelectVehicle(vehicleModel: VehicleModel)
+    fun onSelectVehicle(carImageView: ImageView, vehicleModel: VehicleModel)
 }
 
 interface OutputVehicleViewModel {
@@ -61,9 +62,10 @@ class VehicleViewModel @Inject constructor(
         }
     }
 
-    override fun onSelectVehicle(vehicleModel: VehicleModel) {
+    override fun onSelectVehicle(carImageView: ImageView, vehicleModel: VehicleModel) {
         vehicleObserverEvent.postValue(
             VehicleState.StartDetail(
+                carImageView,
                 vehicleModel
             )
         )

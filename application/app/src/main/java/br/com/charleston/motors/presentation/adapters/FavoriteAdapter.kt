@@ -36,6 +36,7 @@ class FavoriteAdapter(
         override fun bind(model: VehicleModel) {
             item.run {
                 this.model = model
+                this.ivCar.transitionName = model.id.toString()
                 this.root.setOnLongClickListener {
                     listener.onFavoriteLongSelected(it, model, adapterPosition)
                     true

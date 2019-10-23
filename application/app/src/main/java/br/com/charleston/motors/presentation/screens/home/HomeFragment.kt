@@ -112,7 +112,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private fun startDetail(carImageView: ImageView, vehicleModel: VehicleModel) {
         view?.let {
             val extras = FragmentNavigatorExtras(
-                carImageView to getString(R.string.transition_image_car)
+                carImageView to vehicleModel.id.toString()
             )
 
             findNavController().navigate(

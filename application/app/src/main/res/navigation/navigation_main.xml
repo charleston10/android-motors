@@ -21,7 +21,9 @@
 
         <action
             android:id="@+id/action_homeFragment_to_vehicleDetailFragment"
-            app:destination="@id/vehicleDetailFragment"/>
+            app:destination="@id/vehicleDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
     </fragment>
 
     <fragment
@@ -37,10 +39,8 @@
         <action
             android:id="@+id/action_vehicleFragment_to_vehicleDetailFragment"
             app:destination="@id/vehicleDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"/>
     </fragment>
 
     <fragment

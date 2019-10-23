@@ -2,9 +2,11 @@ package br.com.charleston.motors.presentation.screens.vehicle.list
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.core.base.BaseFragment
@@ -85,19 +87,25 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
             }
 
             is VehicleState.StartDetail -> {
-                startDetail(state.model)
+                startDetail(state.carImageView, state.model)
             }
         }
     }
 
-    private fun startDetail(model: VehicleModel) {
+    private fun startDetail(carImageView: ImageView, model: VehicleModel) {
         view?.let {
-            val action = VehicleFragmentDirections
-                .actionVehicleFragmentToVehicleDetailFragment(model)
+            val extras = FragmentNavigatorExtras(
+                carImageView to model.id.toString()
+            )
 
-            Navigation
-                .findNavController(it)
-                .navigate(action)
+            findNavController().navigate(
+                R.id.action_vehicleFragment_to_vehicleDetailFragment,
+                Bundle().apply {
+                    putParcelable("vehicleModel", model)
+                },
+                null,
+                extras
+            )
         }
     }
 
