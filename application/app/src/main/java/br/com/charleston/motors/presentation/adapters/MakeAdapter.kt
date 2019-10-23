@@ -1,7 +1,6 @@
 package br.com.charleston.motors.presentation.adapters
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -10,7 +9,6 @@ import br.com.charleston.core.base.BaseViewHolder
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.ItemMakeBinding
-import java.util.*
 
 
 interface MakeAdapterListener {
@@ -39,7 +37,7 @@ class MakeAdapter(
 
             item.run {
                 this.model = model
-                cardView.setCardBackgroundColor(color)
+                cardView.setCardBackgroundColor(this.root.context.resources.getColor(color))
                 root.setOnClickListener {
                     listener.onMakeSelect(model)
                 }
@@ -48,10 +46,11 @@ class MakeAdapter(
         }
 
         private fun randomColor(context: Context): Int {
-            val allColors = context.resources.getStringArray(R.array.colors)
-            return Color.parseColor(allColors[Random().nextInt(allColors.size)])
+            return if (adapterPosition % 2 == 0) {
+                R.color.gray
+            } else {
+                R.color.gray_medium
+            }
         }
     }
-
-
 }
