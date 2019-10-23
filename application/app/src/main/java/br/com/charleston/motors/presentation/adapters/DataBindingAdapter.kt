@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
+import br.com.charleston.motors.presentation.extensions.animateFallDown
 import br.com.charleston.motors.presentation.screens.home.HomeViewModel
 import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewModel
 import com.bumptech.glide.Glide
@@ -155,6 +156,7 @@ class DataBindingAdapter {
                             LinearLayoutManager.VERTICAL,
                             false
                         )
+                    recyclerView.animateFallDown()
                 } else {
                     (recyclerView.adapter  as? VehicleAdapter)?.refreshList(items.toList())
                 }
