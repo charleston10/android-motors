@@ -1,6 +1,7 @@
 package br.com.charleston.motors.presentation.screens.home
 
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.charleston.core.ActionLiveData
@@ -17,7 +18,7 @@ interface InputHomeViewModel {
     fun initialize()
     fun onSelectMake(makeModel: MakeModel)
     fun onSelectLongVehicle(anchor: View, vehicleModel: VehicleModel, position: Int)
-    fun onSelectShortVehicle(vehicleModel: VehicleModel)
+    fun onSelectShortVehicle(carImageView: ImageView, vehicleModel: VehicleModel)
     fun removeFavorite(vehicleModel: VehicleModel, position: Int)
     fun filterFavorite(filter: String)
 }
@@ -73,8 +74,8 @@ class HomeViewModel @Inject constructor(
         favoriteEvent.postValue(FavoriteState.Remove(anchor, vehicleModel, position))
     }
 
-    override fun onSelectShortVehicle(vehicleModel: VehicleModel) {
-        favoriteEvent.postValue(FavoriteState.StartDetail(vehicleModel))
+    override fun onSelectShortVehicle(carImageView: ImageView, vehicleModel: VehicleModel) {
+        favoriteEvent.postValue(FavoriteState.StartDetail(carImageView, vehicleModel))
     }
 
     override fun filterFavorite(filter: String) {

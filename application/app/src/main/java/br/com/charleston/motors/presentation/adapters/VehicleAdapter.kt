@@ -2,6 +2,7 @@ package br.com.charleston.motors.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import br.com.charleston.core.base.BaseAdapter
 import br.com.charleston.core.base.BaseViewHolder
@@ -13,7 +14,7 @@ import br.com.charleston.motors.databinding.ItemVehicleBinding
 
 
 interface VehicleAdapterListener {
-    fun onVehicleSelect(vehicleModel: VehicleModel)
+    fun onVehicleSelect(carImageView: ImageView, vehicleModel: VehicleModel)
 }
 
 class VehicleAdapter(
@@ -37,7 +38,7 @@ class VehicleAdapter(
             item.run {
                 this.model = model
                 root.setOnClickListener {
-                    listener.onVehicleSelect(model)
+                    listener.onVehicleSelect(this.imageView, model)
                 }
                 executePendingBindings()
             }

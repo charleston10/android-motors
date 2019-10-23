@@ -2,6 +2,7 @@ package br.com.charleston.motors.presentation.screens.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -12,8 +13,9 @@ import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentHomeBinding
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import br.com.charleston.motors.presentation.adapters.FavoriteAdapter
-import com.google.android.material.textfield.TextInputLayout
+import androidx.navigation.fragment.findNavController
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -87,7 +89,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
 
             is FavoriteState.StartDetail -> {
-                startDetail(state.vehicleModel)
+                startDetail(state.carImageView, state.vehicleModel)
             }
 
             is FavoriteState.FilterSuccess -> {
@@ -107,14 +109,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }
     }
 
-    private fun startDetail(vehicleModel: VehicleModel) {
+    private fun startDetail(carImageView: ImageView, vehicleModel: VehicleModel) {
         view?.let {
-            val action = HomeFragmentDirections
-                .actionHomeFragmentToVehicleDetailFragment(vehicleModel)
+            val extras = FragmentNavigatorExtras(
+                carImageView to getString(R.string.transition_image_car)
+            )
 
-            Navigation
-                .findNavController(it)
-                .navigate(action)
+            findNavController().navigate(
+                R.id.action_homeFragment_to_vehicleDetailFragment,
+                Bundle().apply {
+                    putParcelable("vehicleModel", vehicleModel)
+                },
+                null,
+                extras
+            )
         }
     }
 

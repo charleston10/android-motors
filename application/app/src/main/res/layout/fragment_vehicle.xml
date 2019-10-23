@@ -65,9 +65,9 @@
                 android:layout_below="@id/txt_title"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
+                android:textColor="@color/textLabel"
                 app:bindFilterDescription="@{make}"
-                tools:text="Showing all cars"
-                android:textColor="@color/textLabel"/>
+                tools:text="Showing all cars"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_vehicles"
@@ -75,6 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_above="@id/loading_page"
                 android:layout_below="@id/txt_subtitle"
+                android:layoutAnimation="@anim/layout_animation_fall_down"
                 app:bindListVehicle="@{vehicles}"
                 app:bindListVehicleViewModel="@{viewModel}"
                 tools:itemCount="3"

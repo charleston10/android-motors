@@ -3,6 +3,7 @@ package br.com.charleston.motors.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import br.com.charleston.core.base.BaseAdapter
 import br.com.charleston.core.base.BaseViewHolder
@@ -12,7 +13,7 @@ import br.com.charleston.motors.databinding.ItemFavoriteBinding
 
 interface FavoriteAdapterListener {
     fun onFavoriteLongSelected(anchor: View, vehicleModel: VehicleModel, position: Int)
-    fun onFavoriteShortSelected(vehicleModel: VehicleModel)
+    fun onFavoriteShortSelected(carImageView: ImageView, vehicleModel: VehicleModel)
 }
 
 class FavoriteAdapter(
@@ -40,7 +41,7 @@ class FavoriteAdapter(
                     true
                 }
                 this.root.setOnClickListener {
-                    listener.onFavoriteShortSelected(model)
+                    listener.onFavoriteShortSelected(this.ivCar, model)
                 }
                 executePendingBindings()
             }

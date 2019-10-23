@@ -5,11 +5,20 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.TransitionInflater
 import br.com.charleston.core.base.BaseFragment
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentVehicleDetailBinding
 
+
 class VehicleDetailFragment : BaseFragment<FragmentVehicleDetailBinding, VehicleDetailViewModel>() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,7 +82,7 @@ class VehicleDetailFragment : BaseFragment<FragmentVehicleDetailBinding, Vehicle
         getViewDataBinding().isLoading = value
     }
 
-    private fun bindView(){
+    private fun bindView() {
         getViewDataBinding().viewModel = getViewModel()
     }
 }

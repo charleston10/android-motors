@@ -81,6 +81,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
+                    android:transitionName="@string/transition_image_car"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -226,7 +227,6 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:enabled="@{!isLoading}"
-                    tools:text="Favorite"
                     android:onClick="@{() -> viewModel.input.favorite(model)}"
                     android:text="@{isLoading ? @string/vehicle_detail_button_favoring : @string/vehicle_detail_button_favorite}"
                     android:textColor="@color/textLabel"
@@ -235,7 +235,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
                     app:strokeColor="@color/gray_medium"
-                    app:strokeWidth="1dp"/>
+                    app:strokeWidth="1dp"
+                    tools:text="Favorite"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ProgressBar

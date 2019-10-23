@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.textfield.TextInputLayout
 
+
 class DataBindingAdapter {
 
     companion object {
@@ -110,8 +111,11 @@ class DataBindingAdapter {
             items?.let {
                 if (recyclerView.adapter == null) {
                     recyclerView.adapter = FavoriteAdapter(object : FavoriteAdapterListener {
-                        override fun onFavoriteShortSelected(vehicleModel: VehicleModel) {
-                            viewModel?.input?.onSelectShortVehicle(vehicleModel)
+                        override fun onFavoriteShortSelected(
+                            carImageView: ImageView,
+                            vehicleModel: VehicleModel
+                        ) {
+                            viewModel?.input?.onSelectShortVehicle(carImageView, vehicleModel)
                         }
 
                         override fun onFavoriteLongSelected(
@@ -144,7 +148,10 @@ class DataBindingAdapter {
             items?.let {
                 if (recyclerView.adapter == null) {
                     recyclerView.adapter = VehicleAdapter(object : VehicleAdapterListener {
-                        override fun onVehicleSelect(vehicleModel: VehicleModel) {
+                        override fun onVehicleSelect(
+                            carImageView: ImageView,
+                            vehicleModel: VehicleModel
+                        ) {
                             viewModel?.input?.onSelectVehicle(vehicleModel)
                         }
                     }).apply {
