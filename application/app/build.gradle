@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     def config = rootProject.ext
@@ -86,7 +86,7 @@ dependencies {
 
     implementation libCore.monitoring.timber
 
-    implementation libCore.arch.archNavigationFragment
+    implementation libCore.arch.archNavigationFragmentKtx
     implementation libCore.arch.archNavigationUi
     implementation libCore.arch.archRuntime
     implementation libCore.arch.archExtensions
