@@ -24,6 +24,7 @@
 
     <string name="vehicle_detail_button_favoring">Favoring</string>
     <string name="vehicle_detail_button_favorite">Favorite</string>
+    <string name="vehicle_detail_button_disfavor">Disfavor</string>
 
     <string name="transition_image_car">transition_image_car</string>
 </resources>

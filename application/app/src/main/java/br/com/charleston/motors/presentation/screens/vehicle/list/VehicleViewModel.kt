@@ -9,7 +9,6 @@ import br.com.charleston.domain.DefaultObserver
 import br.com.charleston.domain.interactor.GetVehicleUseCase
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
-import java.util.*
 import javax.inject.Inject
 
 interface InputVehicleViewModel {
@@ -35,10 +34,10 @@ class VehicleViewModel @Inject constructor(
     InputVehicleViewModel,
     OutputVehicleViewModel {
 
+    private var initialized = false
     private var vehiclePage = 1
     private var perPage = 10
     private var breakPagination = false
-    private val list: ArrayList<VehicleModel> = arrayListOf()
     private var makeModel: MakeModel? = null
 
     override val input: InputVehicleViewModel get() = this
@@ -51,8 +50,11 @@ class VehicleViewModel @Inject constructor(
     override val vehicleListLiveData: LiveData<List<VehicleModel>> get() = vehicleListMutableLiveData
 
     override fun findVehicles(makeModel: MakeModel) {
-        this.makeModel = makeModel
-        getVehicles(makeModel)
+        if (!initialized) {
+            this.makeModel = makeModel
+            getVehicles(makeModel)
+            initialized = true
+        }
     }
 
     override fun nextVehiclePage() {
@@ -100,10 +102,8 @@ class VehicleViewModel @Inject constructor(
         if (items.isEmpty()) {
             vehicleObserverEvent.postValue(VehicleState.Empty)
         } else {
-            if (!breakPagination) list.addAll(items)
-
             vehicleObserverEvent.postValue(VehicleState.Success)
-            vehicleListMutableLiveData.postValue(list)
+            vehicleListMutableLiveData.postValue(items)
             treatPage(items.size)
         }
     }

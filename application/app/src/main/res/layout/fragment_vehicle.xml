@@ -75,9 +75,6 @@
                 android:layout_height="match_parent"
                 android:layout_above="@id/loading_page"
                 android:layout_below="@id/txt_subtitle"
-                android:layoutAnimation="@anim/layout_animation_fall_down"
-                app:bindListVehicle="@{vehicles}"
-                app:bindListVehicleViewModel="@{viewModel}"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_vehicle"/>
 

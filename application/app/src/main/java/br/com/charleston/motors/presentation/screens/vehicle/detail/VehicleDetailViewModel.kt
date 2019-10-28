@@ -8,11 +8,13 @@ import br.com.charleston.domain.model.VehicleModel
 import javax.inject.Inject
 
 interface InputVehicleDetailViewModel {
+    fun initialize(vehicleModel: VehicleModel)
     fun favorite(vehicleModel: VehicleModel)
 }
 
 interface OutputVehicleDetailViewModel {
     val vehicleEvent: ActionLiveData<VehicleDetailState>
+    val vehicleModel: VehicleModel
 }
 
 interface ContractVehicleDetailViewModel {
@@ -27,11 +29,19 @@ class VehicleDetailViewModel @Inject constructor(
     InputVehicleDetailViewModel,
     OutputVehicleDetailViewModel {
 
+    lateinit var model: VehicleModel
+
     override val input: InputVehicleDetailViewModel get() = this
     override val output: OutputVehicleDetailViewModel get() = this
 
     private val vehicleObserverEvent = ActionLiveData<VehicleDetailState>()
     override val vehicleEvent: ActionLiveData<VehicleDetailState> get() = vehicleObserverEvent
+
+    override val vehicleModel: VehicleModel get() = model
+
+    override fun initialize(vehicleModel: VehicleModel) {
+        this.model = vehicleModel
+    }
 
     override fun favorite(vehicleModel: VehicleModel) {
         saveFavoriteUseCase.execute(object : DefaultObserver<Boolean>() {
@@ -41,6 +51,7 @@ class VehicleDetailViewModel @Inject constructor(
             }
 
             override fun onNext(t: Boolean) {
+                model.isFavorite.set(t)
                 vehicleObserverEvent.postValue(VehicleDetailState.Success)
             }
 
@@ -49,6 +60,6 @@ class VehicleDetailViewModel @Inject constructor(
                 exception.printStackTrace()
                 vehicleObserverEvent.postValue(VehicleDetailState.Error)
             }
-        }, vehicleModel.id)
+        }, vehicleModel)
     }
 }

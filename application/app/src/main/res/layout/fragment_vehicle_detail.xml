@@ -8,10 +8,6 @@
         <import type="android.view.View"/>
 
         <variable
-            name="model"
-            type="br.com.charleston.domain.model.VehicleModel"/>
-
-        <variable
             name="viewModel"
             type="br.com.charleston.motors.presentation.screens.vehicle.detail.VehicleDetailViewModel"/>
 
@@ -40,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@{model.model}"
+                    android:text="@{viewModel.vehicleModel.model}"
                     android:textColor="@color/textTitle"
                     android:textSize="22sp"
                     android:textStyle="bold"
@@ -53,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@{model.make}"
+                    android:text="@{viewModel.vehicleModel.make}"
                     android:textColor="@color/textLabel"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/textView4"
@@ -65,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@{model.price}"
+                    android:text="@{viewModel.vehicleModel.price}"
                     android:textColor="@color/textTitle"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -110,7 +106,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="4dp"
-                        android:text="@{model.color}"
+                        android:text="@{viewModel.vehicleModel.color}"
                         android:textColor="@color/textLabel"
                         android:textSize="@dimen/carDetailBoxText"
                         android:textStyle="bold"
@@ -145,7 +141,7 @@
                         android:textColor="@color/textLabel"
                         android:textSize="@dimen/carDetailBoxText"
                         android:textStyle="bold"
-                        app:bindInt="@{model.km}"
+                        app:bindInt="@{viewModel.vehicleModel.km}"
                         tools:text="47500"/>
                 </RelativeLayout>
 
@@ -180,7 +176,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="4dp"
-                        android:text="@{model.yearModel}"
+                        android:text="@{viewModel.vehicleModel.yearModel}"
                         android:textColor="@color/textLabel"
                         android:textSize="@dimen/carDetailBoxText"
                         android:textStyle="bold"
@@ -211,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginTop="4dp"
-                        android:text="@{model.yearFab}"
+                        android:text="@{viewModel.vehicleModel.yearFab}"
                         android:textColor="@color/textLabel"
                         android:textSize="@dimen/carDetailBoxText"
                         android:textStyle="bold"
@@ -225,9 +221,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:enabled="@{!isLoading}"
-                    android:onClick="@{() -> viewModel.input.favorite(model)}"
-                    android:text="@{isLoading ? @string/vehicle_detail_button_favoring : @string/vehicle_detail_button_favorite}"
+                    android:onClick="@{() -> viewModel.input.favorite(viewModel.vehicleModel)}"
+                    app:bindButtonFavorite="@{viewModel.vehicleModel}"
+                    app:bindButtonFavoriteLoading="@{isLoading}"
                     android:textColor="@color/textLabel"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

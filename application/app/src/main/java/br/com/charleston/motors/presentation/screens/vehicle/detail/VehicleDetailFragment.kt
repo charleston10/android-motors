@@ -30,6 +30,8 @@ class VehicleDetailFragment : BaseFragment<FragmentVehicleDetailBinding, Vehicle
         sharedElementEnterTransition =
             TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +54,8 @@ class VehicleDetailFragment : BaseFragment<FragmentVehicleDetailBinding, Vehicle
         arguments?.let {
             val safeArgs = VehicleDetailFragmentArgs.fromBundle(it)
             val model = safeArgs.vehicleModel
-            getViewDataBinding().model = model
+
+            getViewModel().input.initialize(model)
 
             bindImage(model)
             bindView(model)
@@ -67,29 +70,12 @@ class VehicleDetailFragment : BaseFragment<FragmentVehicleDetailBinding, Vehicle
     }
 
     private fun handlerState(state: VehicleDetailState) {
-        when (state) {
-            is VehicleDetailState.Loading -> {
-                showLoading(true)
-            }
-
-            is VehicleDetailState.Success -> {
-                showMessageSuccess()
-                showLoading(false)
-            }
-
-            is VehicleDetailState.Error -> {
-                showMessageError()
-                showLoading(false)
-            }
-        }
+        if (state is VehicleDetailState.Error) showMessageError()
+        showLoading(state is VehicleDetailState.Loading)
     }
 
     private fun showMessageError() {
         Toast.makeText(this.context, "Error in favoring", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showMessageSuccess() {
-        Toast.makeText(this.context, "Success favorite", Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(value: Boolean) {

@@ -13,17 +13,31 @@ import br.com.charleston.core.base.BaseFragment
 import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.R
 import br.com.charleston.motors.databinding.FragmentVehicleBinding
-import br.com.charleston.motors.presentation.adapters.VehicleAdapter
+import br.com.charleston.motors.presentation.adapters.VehicleAdapterListener
+import br.com.charleston.motors.presentation.adapters.VehicleListAdapter
+import br.com.charleston.motors.presentation.extensions.animateFallDown
 
 class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>() {
+
+    private val listAdapter by lazy {
+        VehicleListAdapter(object : VehicleAdapterListener {
+            override fun onVehicleSelect(
+                carImageView: ImageView,
+                vehicleModel: VehicleModel
+            ) {
+                getViewModel().input.onSelectVehicle(carImageView, vehicleModel)
+            }
+        })
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observerViewModel()
         bindView()
-        setupScroll()
+        setupList()
         findVehicles()
     }
+
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_vehicle
@@ -37,58 +51,28 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
 
     private fun observerViewModel() {
         getViewModel().output.run {
-            vehicleEvent.observe(this@VehicleFragment,
+            vehicleEvent.observe(viewLifecycleOwner,
                 Observer {
                     handlerState(it)
                 })
 
-            vehicleListLiveData.observe(this@VehicleFragment,
+            vehicleListLiveData.observe(viewLifecycleOwner,
                 Observer {
-                    getViewDataBinding().vehicles = it.toTypedArray()
+                    onLoadVehicles(it)
                 })
         }
     }
 
     private fun handlerState(state: VehicleState) {
-        when (state) {
-            is VehicleState.Empty -> {
-                getViewDataBinding().isEmpty = true
-                getViewDataBinding().isLoading = false
-                getViewDataBinding().isError = false
-                getViewDataBinding().isLoadingPage = false
-            }
+        getViewDataBinding().run {
+            isEmpty = state is VehicleState.Empty
+            isLoading = state is VehicleState.Loading
+            isLoadingPage = state is VehicleState.LoadingPage
+            isError = state is VehicleState.Error
+        }
 
-            is VehicleState.Loading -> {
-                getViewDataBinding().isEmpty = false
-                getViewDataBinding().isLoading = true
-                getViewDataBinding().isError = false
-                getViewDataBinding().isLoadingPage = false
-            }
-
-            is VehicleState.Error -> {
-                getViewDataBinding().isEmpty = false
-                getViewDataBinding().isLoading = false
-                getViewDataBinding().isError = true
-                getViewDataBinding().isLoadingPage = false
-            }
-
-            is VehicleState.Success -> {
-                getViewDataBinding().isEmpty = false
-                getViewDataBinding().isLoading = false
-                getViewDataBinding().isError = false
-                getViewDataBinding().isLoadingPage = false
-            }
-
-            is VehicleState.LoadingPage -> {
-                getViewDataBinding().isEmpty = false
-                getViewDataBinding().isLoading = false
-                getViewDataBinding().isError = false
-                getViewDataBinding().isLoadingPage = true
-            }
-
-            is VehicleState.StartDetail -> {
-                startDetail(state.carImageView, state.model)
-            }
+        if (state is VehicleState.StartDetail) {
+            startDetail(state.carImageView, state.model)
         }
     }
 
@@ -113,19 +97,28 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
         getViewDataBinding().viewModel = getViewModel()
     }
 
-    private fun setupScroll() {
-        val list = getViewDataBinding().listVehicles
+    private fun setupList() {
+        getViewDataBinding().listVehicles?.apply {
+            adapter = listAdapter
+            layoutManager = LinearLayoutManager(context)
 
-        list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val visiblePosition =
-                    (list.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val visiblePosition =
+                        (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
 
-                if (visiblePosition == (list.adapter as VehicleAdapter).itemCount - 1) {
-                    getViewModel().input.nextVehiclePage()
+                    if (visiblePosition == listAdapter.itemCount - 1) {
+                        getViewModel().input.nextVehiclePage()
+                    }
                 }
+            })
+
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
             }
-        })
+        }
     }
 
     private fun findVehicles() {
@@ -135,5 +128,12 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
             getViewDataBinding().make = model
             getViewModel().input.findVehicles(model)
         }
+    }
+
+    private fun onLoadVehicles(list: List<VehicleModel>) {
+        if (listAdapter.itemCount == 0) {
+            getViewDataBinding().listVehicles.animateFallDown()
+        }
+        listAdapter.submitList(list.toMutableList())
     }
 }
