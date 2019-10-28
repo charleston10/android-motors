@@ -11,7 +11,7 @@ import io.reactivex.Observable
 @Dao
 interface VehicleDao {
 
-    @Query("SELECT * FROM vehicle")
+    @Query("SELECT *, (SELECT COUNT(favorite.vehicleId) > 0 FROM favorite WHERE favorite.vehicleId = vehicleId) AS isFavorite FROM vehicle")
     fun findAll(): Observable<List<VehicleEntity>>
 
     @Query("SELECT * FROM vehicle WHERE id= :vehicleId")
@@ -24,5 +24,5 @@ interface VehicleDao {
     fun findByFavorite(): Observable<List<VehicleEntity>>
 
     @Query("UPDATE vehicle SET isFavorite = :isFavorite WHERE id = :vehicleId")
-    fun updateFavorite(isFavorite: Int, vehicleId: Int) : Int
+    fun updateFavorite(isFavorite: Int, vehicleId: Int): Int
 }
