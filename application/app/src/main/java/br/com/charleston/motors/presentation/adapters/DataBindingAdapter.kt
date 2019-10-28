@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
-import br.com.charleston.motors.presentation.extensions.animateFallDown
+import br.com.charleston.motors.R
 import br.com.charleston.motors.presentation.screens.home.HomeViewModel
-import br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -140,38 +140,6 @@ class DataBindingAdapter {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["bindListVehicle", "bindListVehicleViewModel"], requireAll = false)
-        fun bindListVehicle(
-            recyclerView: RecyclerView,
-            items: Array<VehicleModel>?,
-            viewModel: VehicleViewModel?
-        ) {
-            items?.let {
-                if (recyclerView.adapter == null) {
-                    recyclerView.adapter = VehicleAdapter(object : VehicleAdapterListener {
-                        override fun onVehicleSelect(
-                            carImageView: ImageView,
-                            vehicleModel: VehicleModel
-                        ) {
-                            viewModel?.input?.onSelectVehicle(carImageView, vehicleModel)
-                        }
-                    }).apply {
-                        this.items = items.toList()
-                    }
-                    recyclerView.layoutManager =
-                        LinearLayoutManager(
-                            recyclerView.context,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                    recyclerView.animateFallDown()
-                } else {
-                    (recyclerView.adapter  as? VehicleAdapter)?.refreshList(items.toList())
-                }
-            }
-        }
-
-        @JvmStatic
         @BindingAdapter(value = ["bindFilterDescription"], requireAll = false)
         fun bindFilterDescription(textView: TextView, makeModel: MakeModel?) {
             makeModel?.let {
@@ -209,6 +177,34 @@ class DataBindingAdapter {
                     } ?: viewModel?.input?.filterFavorite("")
                 }
             })
+        }
+
+        @JvmStatic
+        @BindingAdapter(
+            value = ["bindButtonFavorite", "bindButtonFavoriteLoading"],
+            requireAll = false
+        )
+        fun bindButtonFavorite(button: MaterialButton, model: VehicleModel?, isLoading: Boolean?) {
+            if (model != null && isLoading != null) {
+                when {
+                    isLoading -> {
+                        button.text =
+                            button.context.getString(R.string.vehicle_detail_button_favorite)
+                        button.isEnabled = false
+                    }
+                    model.isFavorite.get() -> {
+                        button.text =
+                            button.context.getString(R.string.vehicle_detail_button_disfavor)
+                        button.isEnabled = true
+                    }
+                    else -> {
+                        button.text =
+                            button.context.getString(R.string.vehicle_detail_button_favorite)
+                    }
+                }
+            } else {
+                button.text = button.context.getString(R.string.vehicle_detail_button_favorite)
+            }
         }
     }
 }

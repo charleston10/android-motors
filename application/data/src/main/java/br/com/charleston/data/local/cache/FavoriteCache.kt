@@ -12,17 +12,17 @@ class FavoriteCache @Inject constructor(
     private val context: Context
 ) {
 
-    private val dao by lazy { AppDatabase.getInstance(context).favoriteDao() }
+    private val dao by lazy { AppDatabase.getInstance(context).vehicleDao() }
 
-    fun save(entity: FavoriteEntity) {
-        dao.save(entity)
+    fun findByFavorite(): Observable<List<VehicleEntity>> {
+        return dao.findByFavorite()
     }
 
-    fun findAll(): Observable<List<VehicleEntity>> {
-        return dao.findAll()
+    fun favorite(vehicleId: Int) {
+        dao.updateFavorite(1, vehicleId)
     }
 
-    fun remove(vehicleId: Int) {
-        dao.remove(vehicleId)
+    fun disfavor(vehicleId: Int) {
+        dao.updateFavorite(0, vehicleId)
     }
 }

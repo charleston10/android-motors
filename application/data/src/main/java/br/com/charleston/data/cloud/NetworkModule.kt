@@ -1,17 +1,21 @@
 package br.com.charleston.data.cloud
 
 import android.annotation.SuppressLint
+import android.content.Context
 import br.com.charleston.data.cloud.RESPONSE_INTERCEPTOR
 import br.com.charleston.data.cloud.URL_DOMAIN
 import br.com.charleston.data.cloud.USER_AGENT_INTERCEPTOR
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.internal.cache.CacheInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
@@ -26,17 +30,23 @@ class NetworkModule {
 
     @Provides
     fun okHttpClient(
+        context: Context,
         @Named(USER_AGENT_INTERCEPTOR) userAgentInterceptor: Interceptor,
         @Named(RESPONSE_INTERCEPTOR) responseInterceptor: Interceptor,
+        @Named(CACHE_INTERCEPTOR) cacheInterceptor: Interceptor,
         trustManager: X509TrustManager,
         sslSocketFactory: SSLSocketFactory
     ): OkHttpClient {
+        val cacheSize = (5 * 1024 * 1024).toLong()
+
         return OkHttpClient.Builder()
+            .cache(Cache(File(context.cacheDir, "http"), cacheSize))
             .connectTimeout(90, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(userAgentInterceptor)
             .addInterceptor(responseInterceptor)
+            .addInterceptor(cacheInterceptor)
             .sslSocketFactory(sslSocketFactory, trustManager)
             .build()
     }
@@ -84,8 +94,18 @@ class NetworkModule {
     @SuppressLint("TrustAllX509TrustManager")
     fun provideX509TrustManager(): X509TrustManager {
         return object : X509TrustManager {
-            override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
-            override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
+            override fun checkClientTrusted(
+                chain: Array<out X509Certificate>?,
+                authType: String?
+            ) {
+            }
+
+            override fun checkServerTrusted(
+                chain: Array<out X509Certificate>?,
+                authType: String?
+            ) {
+            }
+
             override fun getAcceptedIssuers(): Array<X509Certificate> {
                 return arrayOf()
             }

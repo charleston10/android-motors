@@ -17,7 +17,8 @@ class VehicleEntityToModelMapper : IMapper<VehicleEntity, VehicleModel> {
             km = entity.km,
             make = entity.make,
             yearFab = entity.yearFab,
-            yearModel = entity.yearModel
+            yearModel = entity.yearModel,
+            favorite = entity.isFavorite ?: false
         )
     }
 }

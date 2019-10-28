@@ -2,8 +2,10 @@ package br.com.charleston.data.di
 
 import br.com.charleston.data.cloud.requests.AppApi
 import br.com.charleston.data.repository.AppDataRepository
-import br.com.charleston.data.repository.cache.LocalDataStore
+import br.com.charleston.data.repository.store.VehicleStore
 import br.com.charleston.data.repository.cloud.CloudDataStore
+import br.com.charleston.data.repository.store.FavoriteStore
+import br.com.charleston.data.repository.store.MakeStore
 import br.com.charleston.domain.repository.IAppRepository
 import dagger.Module
 import dagger.Provides
@@ -22,8 +24,15 @@ class DataModule {
     @Provides
     fun dataRepository(
         cloud: CloudDataStore,
-        local: LocalDataStore
+        vehicleStore: VehicleStore,
+        favoriteStore: FavoriteStore,
+        makeStore: MakeStore
     ): IAppRepository {
-        return AppDataRepository(cloud, local)
+        return AppDataRepository(
+            cloud = cloud,
+            vehicleStore = vehicleStore,
+            favoriteStore = favoriteStore,
+            makeStore = makeStore
+        )
     }
 }

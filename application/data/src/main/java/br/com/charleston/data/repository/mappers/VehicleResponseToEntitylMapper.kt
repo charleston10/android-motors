@@ -20,7 +20,8 @@ class VehicleResponseToEntitylMapper : IMapper<VehicleResponse, VehicleEntity> {
             km = entity.km,
             make = entity.make,
             yearFab = entity.yearFab,
-            yearModel = entity.yearModel
+            yearModel = entity.yearModel,
+            isFavorite = false
         )
     }
 }

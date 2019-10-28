@@ -14,13 +14,18 @@ class SaveFavoriteUseCase @Inject constructor(
     private val repository: IAppRepository,
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread
-) : UseCase<Boolean, Int>(threadExecutor, postExecutionThread) {
+) : UseCase<Boolean, VehicleModel>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: Int?): Observable<Boolean> {
+    override fun buildUseCaseObservable(params: VehicleModel?): Observable<Boolean> {
         return if (params != null) {
             try {
-                repository.favorite(params)
-                Observable.just(true)
+                if (params.isFavorite.get()) {
+                    repository.removeFavorite(params.id)
+                    Observable.just(false)
+                } else {
+                    repository.favorite(params.id)
+                    Observable.just(true)
+                }
             } catch (e: Exception) {
                 Observable.just(false)
             }

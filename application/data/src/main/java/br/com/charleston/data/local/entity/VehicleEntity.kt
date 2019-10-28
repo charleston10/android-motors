@@ -15,5 +15,6 @@ data class VehicleEntity(
     val price: String,
     val yearModel: String,
     val yearFab: String,
-    val color: String
+    val color: String,
+    val isFavorite: Boolean? = false
 )

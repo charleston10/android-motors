@@ -17,6 +17,10 @@ class VehicleCache @Inject constructor(
         dao.save(entity)
     }
 
+    fun findById(vehicleId: Int): Observable<VehicleEntity> {
+        return dao.findById(vehicleId)
+    }
+
     fun findAll(): Observable<List<VehicleEntity>> {
         return dao.findAll()
     }

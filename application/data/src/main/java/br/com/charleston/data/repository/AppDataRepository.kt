@@ -1,24 +1,38 @@
 package br.com.charleston.data.repository
 
-import br.com.charleston.data.repository.cache.LocalDataStore
 import br.com.charleston.data.repository.cloud.CloudDataStore
 import br.com.charleston.data.repository.mappers.*
-import br.com.charleston.domain.model.*
+import br.com.charleston.data.repository.store.FavoriteStore
+import br.com.charleston.data.repository.store.MakeStore
+import br.com.charleston.data.repository.store.VehicleStore
+import br.com.charleston.domain.model.MakeModel
+import br.com.charleston.domain.model.Model
+import br.com.charleston.domain.model.VehicleModel
+import br.com.charleston.domain.model.VersionModel
 import br.com.charleston.domain.repository.IAppRepository
-import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 
 class AppDataRepository(
     private val cloud: CloudDataStore,
-    private val local: LocalDataStore
+    private val vehicleStore: VehicleStore,
+    private val favoriteStore: FavoriteStore,
+    private val makeStore: MakeStore
 ) : IAppRepository {
 
     override fun getMakes(): Observable<List<MakeModel>> {
-        val mapper = MakeResponseToModelMapper()
+        val mapperResponseToEntity = MakeResponseToEntityMapper()
+        val mapperEntityToModel = MakeEntityToModelMapper()
 
         return cloud.getMakes()
             .map {
-                mapper.transform(it)
+                mapperResponseToEntity.transform(it)
+            }
+            .doOnNext {
+                makeStore.save(it)
+            }
+            .map {
+                mapperEntityToModel.transform(it)
             }
     }
 
@@ -45,11 +59,12 @@ class AppDataRepository(
         val mapperEntityToModel = VehicleEntityToModelMapper()
 
         return cloud.getVehicles(page)
+            .retry(3)
             .map {
                 mapperResponseToEntity.transform(it)
             }
             .doOnNext {
-                local.insertListVehicle(it)
+                vehicleStore.insertList(it)
             }
             .map {
                 mapperEntityToModel.transform(it)
@@ -57,17 +72,17 @@ class AppDataRepository(
     }
 
     override fun favorite(vehicleId: Int) {
-        local.favorite(vehicleId)
+        favoriteStore.favorite(vehicleId)
     }
 
     override fun getFavorites(): Observable<List<VehicleModel>> {
         val mapper = VehicleEntityToModelMapper()
 
-        return local.findFavorites()
+        return favoriteStore.findFavorites()
             .map { mapper.transform(it) }
     }
 
     override fun removeFavorite(vehicleId: Int) {
-        local.removeFavorite(vehicleId)
+        favoriteStore.removeFavorite(vehicleId)
     }
 }
