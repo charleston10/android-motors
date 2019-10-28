@@ -58,7 +58,9 @@ class VehicleListViewModel @Inject constructor(
     }
 
     override fun nextVehiclePage() {
-        if (!breakPagination && makeModel != null) {
+        if (!breakPagination && makeModel != null
+            && (vehicleObserverEvent.value != null && vehicleObserverEvent.value != VehicleListState.LoadingPage)
+        ) {
             vehiclePage++
             getVehicles(makeModel!!)
         }
