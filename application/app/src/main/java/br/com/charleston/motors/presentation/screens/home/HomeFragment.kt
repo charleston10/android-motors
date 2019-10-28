@@ -183,6 +183,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             adapter = adapterFavorite
             layoutManager = GridLayoutManager(context, 2)
             setHasFixedSize(true)
+
+            postponeEnterTransition()
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
     }
 
