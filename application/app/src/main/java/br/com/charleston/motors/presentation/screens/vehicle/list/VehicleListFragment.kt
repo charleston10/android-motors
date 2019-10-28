@@ -134,6 +134,6 @@ class VehicleListFragment : BaseFragment<FragmentListVehicleBinding, VehicleList
         if (listAdapter.itemCount == 0) {
             getViewDataBinding().listVehicles.animateFallDown()
         }
-        listAdapter.submitList(list.toMutableList())
+        listAdapter.addAll(list)
     }
 }

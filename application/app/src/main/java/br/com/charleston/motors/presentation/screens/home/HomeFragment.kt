@@ -72,7 +72,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             makeLiveData.observe(this@HomeFragment,
                 Observer {
                     adapterMakes.refreshList(it)
-
                 })
 
             vehicleLiveData.observe(this@HomeFragment,
