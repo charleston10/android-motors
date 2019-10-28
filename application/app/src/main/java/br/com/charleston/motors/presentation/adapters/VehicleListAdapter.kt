@@ -47,16 +47,6 @@ class VehicleListAdapter(
         holder.bind(getItem(position))
     }
 
-    override fun submitList(newList: MutableList<VehicleModel>?) {
-        super.submitList(
-            if (newList != null) {
-                ArrayList(newList)
-            } else {
-                null
-            }
-        )
-    }
-
     inner class VehicleListViewHolder(private val item: ItemVehicleBinding) :
         BaseViewHolder<VehicleModel>(item.root) {
         override fun bind(model: VehicleModel) {
