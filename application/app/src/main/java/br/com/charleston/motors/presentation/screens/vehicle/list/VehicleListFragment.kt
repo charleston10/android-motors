@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.charleston.core.base.BaseFragment
 import br.com.charleston.domain.model.VehicleModel
 import br.com.charleston.motors.R
-import br.com.charleston.motors.databinding.FragmentVehicleBinding
+import br.com.charleston.motors.databinding.FragmentListVehicleBinding
 import br.com.charleston.motors.presentation.adapters.VehicleAdapterListener
 import br.com.charleston.motors.presentation.adapters.VehicleListAdapter
 import br.com.charleston.motors.presentation.extensions.animateFallDown
 
-class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>() {
+class VehicleListFragment : BaseFragment<FragmentListVehicleBinding, VehicleListViewModel>() {
 
     private val listAdapter by lazy {
         VehicleListAdapter(object : VehicleAdapterListener {
@@ -40,13 +40,13 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
 
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_vehicle
+        return R.layout.fragment_list_vehicle
     }
 
-    override fun getViewModel(): VehicleViewModel {
+    override fun getViewModel(): VehicleListViewModel {
         return ViewModelProviders
             .of(this, viewModelFactory)
-            .get(VehicleViewModel::class.java)
+            .get(VehicleListViewModel::class.java)
     }
 
     private fun observerViewModel() {
@@ -63,15 +63,15 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
         }
     }
 
-    private fun handlerState(state: VehicleState) {
+    private fun handlerState(state: VehicleListState) {
         getViewDataBinding().run {
-            isEmpty = state is VehicleState.Empty
-            isLoading = state is VehicleState.Loading
-            isLoadingPage = state is VehicleState.LoadingPage
-            isError = state is VehicleState.Error
+            isEmpty = state is VehicleListState.Empty
+            isLoading = state is VehicleListState.Loading
+            isLoadingPage = state is VehicleListState.LoadingPage
+            isError = state is VehicleListState.Error
         }
 
-        if (state is VehicleState.StartDetail) {
+        if (state is VehicleListState.StartDetail) {
             startDetail(state.carImageView, state.model)
         }
     }
@@ -123,7 +123,7 @@ class VehicleFragment : BaseFragment<FragmentVehicleBinding, VehicleViewModel>()
 
     private fun findVehicles() {
         arguments?.let {
-            val safeArgs = VehicleFragmentArgs.fromBundle(it)
+            val safeArgs = VehicleListFragmentArgs.fromBundle(it)
             val model = safeArgs.makeModel
             getViewDataBinding().make = model
             getViewModel().input.findVehicles(model)

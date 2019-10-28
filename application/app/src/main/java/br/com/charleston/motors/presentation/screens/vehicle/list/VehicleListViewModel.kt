@@ -11,28 +11,28 @@ import br.com.charleston.domain.model.MakeModel
 import br.com.charleston.domain.model.VehicleModel
 import javax.inject.Inject
 
-interface InputVehicleViewModel {
+interface InputVehicleListViewModel {
     fun findVehicles(makeModel: MakeModel)
     fun nextVehiclePage()
     fun onSelectVehicle(carImageView: ImageView, vehicleModel: VehicleModel)
 }
 
-interface OutputVehicleViewModel {
-    val vehicleEvent: ActionLiveData<VehicleState>
+interface OutputVehicleListViewModel {
+    val vehicleEvent: ActionLiveData<VehicleListState>
     val vehicleListLiveData: LiveData<List<VehicleModel>>
 }
 
-interface ContractVehicleViewModel {
-    val input: InputVehicleViewModel
-    val output: OutputVehicleViewModel
+interface ContractVehicleListViewModel {
+    val input: InputVehicleListViewModel
+    val output: OutputVehicleListViewModel
 }
 
-class VehicleViewModel @Inject constructor(
+class VehicleListViewModel @Inject constructor(
     private val getVehicleUseCase: GetVehicleUseCase
 ) : BaseViewModel(),
-    ContractVehicleViewModel,
-    InputVehicleViewModel,
-    OutputVehicleViewModel {
+    ContractVehicleListViewModel,
+    InputVehicleListViewModel,
+    OutputVehicleListViewModel {
 
     private var initialized = false
     private var vehiclePage = 1
@@ -40,11 +40,11 @@ class VehicleViewModel @Inject constructor(
     private var breakPagination = false
     private var makeModel: MakeModel? = null
 
-    override val input: InputVehicleViewModel get() = this
-    override val output: OutputVehicleViewModel get() = this
+    override val input: InputVehicleListViewModel get() = this
+    override val output: OutputVehicleListViewModel get() = this
 
-    private val vehicleObserverEvent = ActionLiveData<VehicleState>()
-    override val vehicleEvent: ActionLiveData<VehicleState> get() = vehicleObserverEvent
+    private val vehicleObserverEvent = ActionLiveData<VehicleListState>()
+    override val vehicleEvent: ActionLiveData<VehicleListState> get() = vehicleObserverEvent
 
     private val vehicleListMutableLiveData = MutableLiveData<List<VehicleModel>>()
     override val vehicleListLiveData: LiveData<List<VehicleModel>> get() = vehicleListMutableLiveData
@@ -66,7 +66,7 @@ class VehicleViewModel @Inject constructor(
 
     override fun onSelectVehicle(carImageView: ImageView, vehicleModel: VehicleModel) {
         vehicleObserverEvent.postValue(
-            VehicleState.StartDetail(
+            VehicleListState.StartDetail(
                 carImageView,
                 vehicleModel
             )
@@ -93,16 +93,16 @@ class VehicleViewModel @Inject constructor(
             override fun onError(exception: Throwable) {
                 super.onError(exception)
                 exception.printStackTrace()
-                vehicleObserverEvent.postValue(VehicleState.Error)
+                vehicleObserverEvent.postValue(VehicleListState.Error)
             }
         }, Pair(vehiclePage, makeModel))
     }
 
     private fun handlerSuccess(items: List<VehicleModel>) {
         if (items.isEmpty()) {
-            vehicleObserverEvent.postValue(VehicleState.Empty)
+            vehicleObserverEvent.postValue(VehicleListState.Empty)
         } else {
-            vehicleObserverEvent.postValue(VehicleState.Success)
+            vehicleObserverEvent.postValue(VehicleListState.Success)
             vehicleListMutableLiveData.postValue(items)
             treatPage(items.size)
         }
@@ -115,10 +115,10 @@ class VehicleViewModel @Inject constructor(
     }
 
     private fun showContentLoading() {
-        vehicleObserverEvent.postValue(VehicleState.Loading)
+        vehicleObserverEvent.postValue(VehicleListState.Loading)
     }
 
     private fun showLoadingMoreItems() {
-        vehicleObserverEvent.postValue(VehicleState.LoadingPage)
+        vehicleObserverEvent.postValue(VehicleListState.LoadingPage)
     }
 }

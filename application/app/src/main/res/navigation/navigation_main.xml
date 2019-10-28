@@ -28,9 +28,9 @@
 
     <fragment
         android:id="@+id/vehicleFragment"
-        android:name="br.com.charleston.motors.presentation.screens.vehicle.list.VehicleFragment"
+        android:name="br.com.charleston.motors.presentation.screens.vehicle.list.VehicleListFragment"
         android:label="VehicleFragment"
-        tools:layout="@layout/fragment_vehicle">
+        tools:layout="@layout/fragment_list_vehicle">
 
         <argument
             android:name="makeModel"

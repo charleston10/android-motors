@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="br.com.charleston.motors.presentation.screens.vehicle.list.VehicleViewModel"/>
+            type="br.com.charleston.motors.presentation.screens.vehicle.list.VehicleListViewModel"/>
 
         <variable
             name="vehicles"
