@@ -3,6 +3,7 @@
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="avatar"
             type="br.com.charleston.domain.model.AvatarModel"/>
@@ -10,7 +11,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <include
             android:id="@+id/include_toolbar_main"
