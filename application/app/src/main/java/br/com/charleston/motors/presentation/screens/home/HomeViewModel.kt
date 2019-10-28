@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 
 interface InputHomeViewModel {
-    fun initialize()
     fun onSelectMake(makeModel: MakeModel)
     fun onSelectLongVehicle(anchor: View, vehicleModel: VehicleModel, position: Int)
     fun onSelectShortVehicle(carImageView: ImageView, vehicleModel: VehicleModel)
@@ -61,7 +60,7 @@ class HomeViewModel @Inject constructor(
     private val makeSelectObserverEvent = ActionLiveData<MakeModel>()
     override val makeSelectEvent: ActionLiveData<MakeModel> get() = makeSelectObserverEvent
 
-    override fun initialize() {
+    init {
         getMakes()
         getFavorites()
     }

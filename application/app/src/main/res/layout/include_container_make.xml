@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="br.com.charleston.motors.presentation.screens.home.HomeViewModel"/>
-
-        <variable
-            name="makes"
-            type="br.com.charleston.domain.model.MakeModel[]"/>
-    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,12 +19,11 @@
             android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_makes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            app:bindListMake="@{makes}"
-            app:bindListMakeViewModel="@{viewModel}"
             tools:itemCount="1"
             tools:listitem="@layout/item_make"/>
     </LinearLayout>

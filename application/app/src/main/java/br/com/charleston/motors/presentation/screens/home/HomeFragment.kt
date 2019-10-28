@@ -16,15 +16,26 @@ import android.widget.Toast
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import br.com.charleston.motors.presentation.adapters.FavoriteAdapter
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.charleston.motors.presentation.adapters.FavoriteAdapterListener
+import br.com.charleston.motors.presentation.adapters.MakeAdapter
+import br.com.charleston.motors.presentation.adapters.MakeAdapterListener
 
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
+    FavoriteAdapterListener,
+    MakeAdapterListener {
+
+    private val adapterFavorite by lazy { FavoriteAdapter(this) }
+    private val adapterMakes by lazy { MakeAdapter(this) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observerViewModel()
         bindView()
-        getViewModel().input.initialize()
+        observerViewModel()
+        setupListFavorite()
+        setupListMakes()
     }
 
     override fun getLayoutId(): Int {
@@ -37,16 +48,36 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             .get(HomeViewModel::class.java)
     }
 
+    override fun onFavoriteShortSelected(
+        carImageView: ImageView,
+        vehicleModel: VehicleModel
+    ) {
+        getViewModel().input.onSelectShortVehicle(carImageView, vehicleModel)
+    }
+
+    override fun onFavoriteLongSelected(
+        anchor: View,
+        vehicleModel: VehicleModel,
+        position: Int
+    ) {
+        getViewModel().input.onSelectLongVehicle(anchor, vehicleModel, position)
+    }
+
+    override fun onMakeSelect(makeModel: MakeModel) {
+        getViewModel().input.onSelectMake(makeModel)
+    }
+
     private fun observerViewModel() {
         getViewModel().output.run {
             makeLiveData.observe(this@HomeFragment,
                 Observer {
-                    getViewDataBinding().makes = it.toTypedArray()
+                    adapterMakes.refreshList(it)
+
                 })
 
             vehicleLiveData.observe(this@HomeFragment,
                 Observer {
-                    getViewDataBinding().vehicles = it.toTypedArray()
+                    adapterFavorite.refreshList(it)
                 })
 
             favoriteEvent.observe(this@HomeFragment,
@@ -63,14 +94,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun handlerState(state: FavoriteState) {
         when (state) {
-            is FavoriteState.Empty -> {
-                getViewDataBinding().includeContainerFavorite.isEmpty = true
-            }
-
-            is FavoriteState.Success -> {
-                getViewDataBinding().includeContainerFavorite.isEmpty = false
-            }
-
             is FavoriteState.Remove -> {
                 showPopUpFavoriteAction(
                     state.anchor,
@@ -93,9 +116,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             }
 
             is FavoriteState.FilterSuccess -> {
-                getViewDataBinding().includeContainerFavorite.vehicles = state.list.toTypedArray()
+                adapterFavorite.refreshList(state.list)
             }
         }
+
+        getViewDataBinding().includeContainerFavorite.isEmpty = state is FavoriteState.Empty
     }
 
     private fun startVehicles(makeModel: MakeModel) {
@@ -152,5 +177,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun showMessageFavoriteRemoveFail() {
         Toast.makeText(this.context, "Fail on remove favorite", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setupListFavorite() {
+        getViewDataBinding().includeContainerFavorite.listFavorite.apply {
+            adapter = adapterFavorite
+            layoutManager = GridLayoutManager(context, 2)
+            setHasFixedSize(true)
+        }
+    }
+
+    private fun setupListMakes() {
+        getViewDataBinding().includeContainerMake.listMakes.apply {
+            adapter = adapterMakes
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+        }
     }
 }

@@ -78,68 +78,6 @@ class DataBindingAdapter {
         }
 
         @JvmStatic
-        @BindingAdapter(value = ["bindListMake", "bindListMakeViewModel"], requireAll = false)
-        fun bindListMake(
-            recyclerView: RecyclerView,
-            items: Array<MakeModel>?,
-            viewModel: HomeViewModel?
-        ) {
-            items?.let {
-                val adapter = MakeAdapter(object : MakeAdapterListener {
-                    override fun onMakeSelect(makeModel: MakeModel) {
-                        viewModel?.input?.onSelectMake(makeModel)
-                    }
-
-                }).apply {
-                    this.items = items.toList()
-                }
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager =
-                    LinearLayoutManager(recyclerView.context, LinearLayoutManager.HORIZONTAL, false)
-            }
-        }
-
-        @JvmStatic
-        @BindingAdapter(
-            value = ["bindListFavorite", "bindListFavoriteViewModel"],
-            requireAll = false
-        )
-        fun bindListFavorite(
-            recyclerView: RecyclerView,
-            items: Array<VehicleModel>?,
-            viewModel: HomeViewModel?
-        ) {
-            items?.let {
-                if (recyclerView.adapter == null) {
-                    recyclerView.adapter = FavoriteAdapter(object : FavoriteAdapterListener {
-                        override fun onFavoriteShortSelected(
-                            carImageView: ImageView,
-                            vehicleModel: VehicleModel
-                        ) {
-                            viewModel?.input?.onSelectShortVehicle(carImageView, vehicleModel)
-                        }
-
-                        override fun onFavoriteLongSelected(
-                            anchor: View,
-                            vehicleModel: VehicleModel,
-                            position: Int
-                        ) {
-                            viewModel?.input?.onSelectLongVehicle(anchor, vehicleModel, position)
-                        }
-
-                    }).apply {
-                        this.items = items.toList()
-                    }
-                    recyclerView.layoutManager =
-                        GridLayoutManager(recyclerView.context, 2)
-                    recyclerView.setHasFixedSize(true)
-                } else {
-                    (recyclerView.adapter  as? FavoriteAdapter)?.refreshList(items.toList())
-                }
-            }
-        }
-
-        @JvmStatic
         @BindingAdapter(value = ["bindFilterDescription"], requireAll = false)
         fun bindFilterDescription(textView: TextView, makeModel: MakeModel?) {
             makeModel?.let {

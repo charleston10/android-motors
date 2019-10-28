@@ -7,14 +7,6 @@
         <variable
             name="viewModel"
             type="br.com.charleston.motors.presentation.screens.home.HomeViewModel"/>
-
-        <variable
-            name="makes"
-            type="br.com.charleston.domain.model.MakeModel[]"/>
-
-        <variable
-            name="vehicles"
-            type="br.com.charleston.domain.model.VehicleModel[]"/>
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -39,9 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/include_container_search"
-                android:layout_marginTop="8dp"
-                bind:makes="@{makes}"
-                bind:viewModel="@{viewModel}"/>
+                android:layout_marginTop="8dp"/>
 
             <include
                 android:id="@+id/include_container_favorite"
@@ -49,9 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/include_container_make"
-                android:layout_marginTop="8dp"
-                bind:vehicles="@{vehicles}"
-                bind:viewModel="@{viewModel}"/>
+                android:layout_marginTop="8dp"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

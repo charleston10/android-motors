@@ -8,14 +8,6 @@
         <import type="android.view.View"/>
 
         <variable
-            name="viewModel"
-            type="br.com.charleston.motors.presentation.screens.home.HomeViewModel"/>
-
-        <variable
-            name="vehicles"
-            type="br.com.charleston.domain.model.VehicleModel[]"/>
-
-        <variable
             name="isEmpty"
             type="java.lang.Boolean"/>
     </data>
@@ -44,8 +36,6 @@
             android:nestedScrollingEnabled="true"
             android:orientation="vertical"
             android:visibility="@{!isEmpty ? View.VISIBLE : View.GONE}"
-            app:bindListFavorite="@{vehicles}"
-            app:bindListFavoriteViewModel="@{viewModel}"
             tools:itemCount="3"
             tools:listitem="@layout/item_favorite"
             tools:visibility="gone"/>
@@ -72,7 +62,6 @@
                 android:layout_marginTop="8dp"
                 android:text="No has favorite car"
                 android:textColor="@color/textLabel"/>
-
         </LinearLayout>
     </LinearLayout>
 </layout>
